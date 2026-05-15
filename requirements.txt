@@ -1,0 +1,6 @@
+firecrawl-py
+openai
+feedparser
+requests
+tenacity
+pydantic

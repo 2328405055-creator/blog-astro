@@ -1,8 +1,8 @@
-name: Deploy Astro to GitHub Pages
+name: Daily Generate + Deploy
 
 # ============================================================
-# 猫明之主小站 · Astro SSG → GitHub Pages
-# 触发: push main 分支 / 手动 / 每日定时 (北京时间 8:30)
+# 猫明之主小站 · 每日内容生成 + Astro 构建 + GitHub Pages 部署
+# 北京时间每天 8:00 自动运行, 也支持 push 触发和手动触发
 # ============================================================
 
 on:
@@ -10,51 +10,152 @@ on:
     branches: [main, master]
   workflow_dispatch:
   schedule:
-    # 北京时间 8:30 = UTC 0:30 (给内容生成留 30 分钟窗口)
-    - cron: '30 0 * * *'
+    # 北京时间 8:00 = UTC 0:00
+    - cron: '0 0 * * *'
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
-# 只允许一个并发部署
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  build:
+  generate-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 35
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
+      # ============================================================
+      # 1. 检出代码
+      # ============================================================
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
+      # ============================================================
+      # 2. 设置 Python 环境
+      # ============================================================
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # ============================================================
+      # 3. 导出 Secrets → 环境变量
+      # ============================================================
+      - name: Setup environment
+        run: |
+          echo "BLOG_FIRECRAWL_API_KEY=${{ secrets.BLOG_FIRECRAWL_API_KEY }}" >> $GITHUB_ENV
+          echo "BLOG_PRIMARY_API_KEY=${{ secrets.BLOG_PRIMARY_API_KEY }}" >> $GITHUB_ENV
+          echo "BLOG_PRIMARY_API_BASE=${{ secrets.BLOG_PRIMARY_API_BASE }}" >> $GITHUB_ENV
+          echo "BLOG_PRIMARY_MODEL=${{ secrets.BLOG_PRIMARY_MODEL }}" >> $GITHUB_ENV
+          echo "BLOG_BACKUP_API_KEY=${{ secrets.BLOG_BACKUP_API_KEY }}" >> $GITHUB_ENV
+          echo "BLOG_BACKUP_API_BASE=${{ secrets.BLOG_BACKUP_API_BASE }}" >> $GITHUB_ENV
+          echo "BLOG_BACKUP_MODEL=${{ secrets.BLOG_BACKUP_MODEL }}" >> $GITHUB_ENV
+          echo "BLOG_ENRICH_ENABLED=${{ secrets.BLOG_ENRICH_ENABLED }}" >> $GITHUB_ENV
+          echo "BLOG_TARGET_WORDS=${{ secrets.BLOG_TARGET_WORDS }}" >> $GITHUB_ENV
+          echo "BLOG_SCRAPE_TIMEOUT=${{ secrets.BLOG_SCRAPE_TIMEOUT }}" >> $GITHUB_ENV
+          echo "BLOG_EMBEDDING_API_BASE=${{ secrets.BLOG_EMBEDDING_API_BASE }}" >> $GITHUB_ENV
+          echo "BLOG_EMBEDDING_MODEL=${{ secrets.BLOG_EMBEDDING_MODEL }}" >> $GITHUB_ENV
+
+      # ============================================================
+      # 4. 每日内容生成 (三板块 10 篇: CB4+Fit3+AI3)
+      # ============================================================
+      - name: Generate daily articles (3 sections)
+        run: |
+          echo "=== 每日内容生成 (跨境4 + 健身3 + AI3) ==="
+          python scripts/daily_generator.py
+          echo "生成完成"
+
+      # ============================================================
+      # 5. Ozon 选品 (仅周一/三/五)
+      # ============================================================
+      - name: Generate Ozon pick (Mon/Wed/Fri)
+        run: |
+          DOW=$(date +%u)
+          if [ "$DOW" = "1" ] || [ "$DOW" = "3" ] || [ "$DOW" = "5" ]; then
+            echo "=== Ozon 每日选品 ==="
+            python scripts/ozon_selector.py
+          else
+            echo "跳过 Ozon (仅周一三五, 今日 DOW=$DOW)"
+          fi
+
+      # ============================================================
+      # 6. 设置 Node.js
+      # ============================================================
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install npm dependencies
         run: npm ci
 
+      # ============================================================
+      # 7. 构建 Astro 站点
+      # ============================================================
       - name: Build Astro site
         run: npm run build
 
-      - name: Upload artifact
+      # ============================================================
+      # 8. 提交生成的文章到仓库
+      # ============================================================
+      - name: Commit generated articles
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/posts/ sitemap.xml
+          if git diff --cached --quiet; then
+            echo "没有新内容"
+          else
+            DATE_STR=$(date +%Y-%m-%d -d '+8 hours')
+            git commit -m "每日更新 $DATE_STR — 自动内容生成"
+            git push
+            echo "已推送新文章"
+          fi
+
+      # ============================================================
+      # 9. 部署到 GitHub Pages
+      # ============================================================
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      # ============================================================
+      # 10. 运行摘要
+      # ============================================================
+      - name: Run summary
+        if: always()
+        run: |
+          echo "## 每日生成摘要" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| 项目 | 值 |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|-----|" >> $GITHUB_STEP_SUMMARY
+          echo "| 运行时间 | $(date -u -d '+8 hours' '+%Y-%m-%d %H:%M') CST |" >> $GITHUB_STEP_SUMMARY
+          if [ -f public/posts/posts.json ]; then
+            TOTAL=$(python -c "import json; print(len(json.load(open('public/posts/posts.json'))))")
+            echo "| 线上文章数 | $TOTAL 篇 |" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "| 生成策略 | 跨境4 + 健身3 + AI3 (Ozon周一三五) |" >> $GITHUB_STEP_SUMMARY
+          echo "| 站点 | [20020426.top](https://20020426.top) |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ 自动完成" >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,12 @@
+{
+  "firecrawl_api_key": "",
+  "primary_api_key": "",
+  "primary_api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+  "primary_model": "qwen-plus",
+  "backup_api_key": "",
+  "backup_api_base": "https://api.deepseek.com",
+  "backup_model": "deepseek-chat",
+  "enrich_enabled": true,
+  "target_words": 700,
+  "scrape_timeout": 30
+}

@@ -1,0 +1,71 @@
+{
+  "enabled": true,
+  "scrape_sources": {
+    "wildberries": {
+      "enabled": true,
+      "base_url": "https://search.wb.ru/exactmatch/ru/common/v5/search",
+      "api_version": "v5",
+      "dest": "-1257786",
+      "request_delay_seconds": 30,
+      "max_pages_per_query": 1,
+      "products_per_page": 60,
+      "min_rating": 4.0,
+      "min_reviews": 30,
+      "queries": [
+        {
+          "keyword": "фитнес-браслет",
+          "cat_cn": "智能手环",
+          "cat_key": "wearables"
+        },
+        {
+          "keyword": "power bank внешний аккумулятор",
+          "cat_cn": "充电宝",
+          "cat_key": "accessories"
+        },
+        {
+          "keyword": "коврик для йоги",
+          "cat_cn": "瑜伽垫",
+          "cat_key": "sports"
+        },
+        {
+          "keyword": "светильник светодиодный",
+          "cat_cn": "LED台灯/夜灯",
+          "cat_key": "home"
+        }
+      ]
+    },
+    "yandex_wordstat": {
+      "enabled": false,
+      "_comment": "Yandex Direct API 需企业认证,暂时禁用",
+      "oauth_token": "",
+      "client_login": "",
+      "use_sandbox": true
+    },
+    "russian_news_rss": {
+      "enabled": true,
+      "feeds": [
+        "https://news.google.com/rss/search?q=%D0%9E%D0%B7%D0%BE%D0%BD+Wildberries+%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D1%8B+%D1%80%D0%B5%D0%B9%D1%82%D0%B8%D0%BD%D0%B3&hl=ru&gl=RU&ceid=RU:ru",
+        "https://news.google.com/rss/search?q=%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F+%D0%BA%D0%BE%D0%BC%D0%BC%D0%B5%D1%80%D1%86%D0%B8%D1%8F+%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F+%D1%82%D1%80%D0%B5%D0%BD%D0%B4&hl=ru&gl=RU&ceid=RU:ru",
+        "https://news.google.com/rss/search?q=Ozon+Wildberries+Yandex+Market+Russia+ecommerce&hl=en&gl=US&ceid=US:en"
+      ]
+    }
+  },
+  "output": {
+    "featured_post_path": "posts/featured_ozon_pick.json",
+    "data_dump_dir": "data/ozon_raw",
+    "max_products": 10,
+    "keep_raw_days": 7
+  },
+  "verification": {
+    "auto_verify": false,
+    "min_source_count": 1,
+    "max_data_age_hours": 72,
+    "required_fields": [
+      "product_name_ru",
+      "price_rub",
+      "source_urls",
+      "category_cn"
+    ],
+    "report_path": "data/ozon_raw/verification_report.json"
+  }
+}
