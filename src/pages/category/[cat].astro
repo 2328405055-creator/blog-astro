@@ -1,0 +1,66 @@
+---
+// ============================================================
+// pages/category/[cat].astro — 分类页面
+// ============================================================
+import Layout from '../../components/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCatSlugs, getPostsByCat, paginatePosts, getCatLabel } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const cats = await getCatSlugs();
+  return cats.map(({ cat }) => ({ params: { cat } }));
+}
+
+const { cat } = Astro.params;
+const posts = await getPostsByCat(cat!);
+const { items, total, page, hasNext } = paginatePosts(posts, 1, 10);
+const label = getCatLabel(cat!);
+
+const allPosts = await (await import('../../lib/posts')).getAllPosts();
+const catCounts: Record<string, number> = {};
+for (const p of allPosts) {
+  catCounts[p.cat] = (catCounts[p.cat] || 0) + 1;
+}
+---
+
+<Layout
+  title={`${label.name} — 猫明之主`}
+  description={`猫明之主 ${label.name} 专栏: ${label.name}实操指南和深度内容`}
+  canonical={`https://20020426.top/category/${cat}`}
+>
+  <section class="hero">
+    <h1 style="font-size:1.8rem">{label.icon} {label.name}</h1>
+    <p>{posts.length} 篇文章</p>
+  </section>
+
+  <!-- 分类 Tab -->
+  <nav class="cat-tabs" aria-label="分类导航">
+    <a href="/" class="cat-tab">全部 ({allPosts.length})</a>
+    {Object.entries(catCounts).map(([c, count]) => {
+      const l = getCatLabel(c);
+      return (
+        <a href={`/category/${c}`} class:list={['cat-tab', { active: c === cat }]}>
+          {l.icon} {l.name} ({count})
+        </a>
+      );
+    })}
+  </nav>
+
+  {items.length > 0 ? (
+    <div class="post-grid">
+      {items.map((post) => <PostCard post={post} />)}
+    </div>
+  ) : (
+    <div style="text-align:center;padding:48px 0;color:var(--text-secondary)">
+      <p style="font-size:48px;margin-bottom:16px">📝</p>
+      <p>这个分类还没有文章</p>
+    </div>
+  )}
+
+  {total > 1 && (
+    <nav class="pagination" aria-label="分页导航">
+      <span class="current">1</span>
+      {hasNext && <a href={`/category/${cat}/page/2`}>2 →</a>}
+    </nav>
+  )}
+</Layout>

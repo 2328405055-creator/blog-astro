@@ -1,0 +1,74 @@
+{
+  "report_id": "vr-2026-05-11-1756",
+  "checked_at": "2026-05-11T17:56:43+08:00",
+  "featured_slug": "ozon-daily-pick-2026-05-11",
+  "plugin_version": "1.0.0",
+  "overall_score": 85,
+  "overall_status": "pass_with_warnings",
+  "summary_cn": "基本通过验证,存在轻微问题可后续优化",
+  "checks": {
+    "source_reliability": {
+      "score": 100,
+      "status": "pass",
+      "details": "✅ Google News RSS (RU+EN): 可访问 (HTTP 200), 基础评分 0.6",
+      "warnings": []
+    },
+    "data_freshness": {
+      "score": 100,
+      "status": "pass",
+      "details": "✅ 数据生成时间: 2026-05-11T17:53:46+08:00 (距今 0.0 小时, 在 24h 内)",
+      "stale_products": []
+    },
+    "cross_reference": {
+      "score": 55,
+      "status": "warn",
+      "details": "❌ 3/3 款商品仅有单一数据源,建议增加 Ozon/Yandex 比价",
+      "discrepancies": [
+        {
+          "product": "📊 家居厨房类目选品机会",
+          "issue": "仅有 1 个数据源"
+        },
+        {
+          "product": "📊 服装鞋包类目选品机会",
+          "issue": "仅有 1 个数据源"
+        },
+        {
+          "product": "📊 母婴玩具类目选品机会",
+          "issue": "仅有 1 个数据源"
+        }
+      ]
+    },
+    "content_completeness": {
+      "score": 100,
+      "status": "pass",
+      "details": "✅ 全部 3 款商品必填字段完整",
+      "missing_fields": []
+    },
+    "market_reasonableness": {
+      "score": 70,
+      "status": "warn",
+      "details": "⚠️ 3 款商品存在数据异常\n  · 📊 家居厨房类目选品机会: 评分异常: 0\n  · 📊 服装鞋包类目选品机会: 评分异常: 0\n  · 📊 母婴玩具类目选品机会: 评分异常: 0",
+      "anomalies": [
+        {
+          "product": "📊 家居厨房类目选品机会",
+          "issues": [
+            "评分异常: 0"
+          ]
+        },
+        {
+          "product": "📊 服装鞋包类目选品机会",
+          "issues": [
+            "评分异常: 0"
+          ]
+        },
+        {
+          "product": "📊 母婴玩具类目选品机会",
+          "issues": [
+            "评分异常: 0"
+          ]
+        }
+      ]
+    }
+  },
+  "recommendations": []
+}

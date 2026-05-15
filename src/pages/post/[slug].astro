@@ -1,0 +1,218 @@
+---
+// ============================================================
+// pages/post/[slug].astro — 文章详情页
+// 整合: TOC + 阅读进度 + 内链推荐 + SEO Schema
+// ============================================================
+import Layout from '../../components/Layout.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import ReadingProgress from '../../components/ReadingProgress.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
+
+import { getPostSlugs, getPostBySlug, getCatLabel, type PostWithBody } from '../../lib/posts';
+import { getRelatedPosts, setPostsCache } from '../../lib/related';
+import {
+  buildArticleSchema,
+  buildBreadcrumbSchema,
+  buildFAQSchema,
+  buildHowToSchema,
+  extractFAQs,
+  getHomeBreadcrumb,
+  renderSchemas,
+  type ArticleMeta,
+  type HowToStep,
+} from '../../lib/schema';
+
+// ============================================================
+// 静态路径生成
+// ============================================================
+export async function getStaticPaths() {
+  const slugs = await getPostSlugs();
+  return slugs.map(({ slug }) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const post = (await getPostBySlug(slug!)) as PostWithBody | null;
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+// 预加载所有文章用于内链推荐
+const { getAllPosts } = await import('../../lib/posts');
+const allPosts = await getAllPosts();
+setPostsCache(allPosts);
+
+// ============================================================
+// 提取 Meta
+// ============================================================
+const catLabel = getCatLabel(post.cat);
+const title = post.title.replace(/^#\s+/, '');
+const description = post.excerpt.replace(/<[^>]+>/g, '').replace(/[#*`]/g, '').slice(0, 160);
+const date = post.date;
+const lastmod = post.lastmod || date;
+const wordCount = post.body.replace(/[#>*\-\|\n\s]/g, '').length;
+const readingTime = `${Math.max(1, Math.ceil(wordCount / 400))} 分钟`;
+
+// ============================================================
+// SEO Schema
+// ============================================================
+const articleMeta: ArticleMeta = {
+  slug: post.slug,
+  title,
+  description,
+  date,
+  lastmod,
+  category: post.cat,
+  tags: post.tags || [post.cat, catLabel.name],
+  readingTime,
+  wordCount,
+};
+
+const isHowTo = /##\s*核心方法|##\s*实战步骤|^\d+\.\s+/m.test(post.body);
+const hasFAQ = /##\s*常见问题/.test(post.body);
+
+const schemas = [
+  buildArticleSchema(articleMeta),
+  buildBreadcrumbSchema(getHomeBreadcrumb(post.cat, catLabel.name)),
+];
+
+if (hasFAQ) {
+  const faqs = extractFAQs(post.body);
+  if (faqs.length > 0) schemas.push(buildFAQSchema(faqs));
+}
+
+if (isHowTo) {
+  const stepRegex = /^\d+\.\s+\*\*(.+?)\*\*\n([\s\S]+?)(?=^\d+\.\s+\*\*|\n##|\n---)/gm;
+  const steps: HowToStep[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = stepRegex.exec(post.body)) !== null) {
+    steps.push({
+      name: m[1].trim(),
+      text: m[2].trim().replace(/\n/g, ' ').slice(0, 300),
+    });
+  }
+  if (steps.length >= 2) schemas.push(buildHowToSchema(title, description, steps));
+}
+
+// ============================================================
+// 内链推荐
+// ============================================================
+const related = await getRelatedPosts(post.slug, post.cat, post.tags || [], 3);
+
+const canonical = `https://20020426.top/post/${post.slug}`;
+---
+
+<Layout
+  title={`${title} — 猫明之主`}
+  description={description}
+  canonical={canonical}
+>
+  <!-- Schema JSON-LD -->
+  <Fragment slot="head" set:html={renderSchemas(schemas)} />
+
+  <!-- 阅读进度 -->
+  <ReadingProgress />
+
+  <article class="article-container">
+    <!-- 文章头部 -->
+    <header class="article-header">
+      <div class="article-meta-top">
+        <a href={`/category/${post.cat}`} class="article-cat-tag">
+          {catLabel.icon} {catLabel.name}
+        </a>
+        <time datetime={date} class="article-date">{date}</time>
+        <span class="article-read-time">🕐 {readingTime}</span>
+      </div>
+      <h1 class="article-title">{title}</h1>
+      {description && description !== title && (
+        <p class="article-desc">{description}</p>
+      )}
+    </header>
+
+    <!-- 两栏: TOC + 正文 -->
+    <div class="article-layout">
+      <aside class="article-sidebar">
+        <TableOfContents headings={post.headings} minDepth={2} />
+      </aside>
+      <div class="article-body">
+        <!-- Markdown 渲染 (客户端 marked.js) -->
+        <div id="markdown-body" data-raw={JSON.stringify(post.body)}>
+          <p style="color:var(--text-secondary)">加载中...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 内链推荐 -->
+    <RelatedPosts
+      currentSlug={post.slug}
+      currentCat={post.cat}
+      related={related}
+      maxItems={3}
+    />
+  </article>
+</Layout>
+
+<script>
+  // 客户端: marked.js 渲染 Markdown
+  import { marked } from 'https://cdn.jsdelivr.net/npm/marked@15/+esm';
+
+  const el = document.getElementById('markdown-body');
+  if (el) {
+    try {
+      const raw = JSON.parse(el.dataset.raw || '');
+      el.innerHTML = marked.parse(raw);
+      // 为所有标题添加 id (用于 TOC 锚点)
+      el.querySelectorAll('h2, h3').forEach((h) => {
+        const id = h.textContent
+          ?.toLowerCase()
+          .replace(/[^\w一-鿿]+/g, '-')
+          .replace(/-+$/g, '');
+        if (id) h.id = id;
+      });
+    } catch (e) {
+      el.innerHTML = '<p>文章渲染失败</p>';
+    }
+  }
+</script>
+
+<style>
+  .article-container { max-width: 960px; margin: 0 auto; padding: 24px 0; }
+  .article-header { margin-bottom: 32px; }
+  .article-meta-top { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; font-size: 14px; flex-wrap: wrap; }
+  .article-cat-tag {
+    background: rgba(79,195,247,0.12); color: #4fc3f7; padding: 4px 12px;
+    border-radius: 20px; text-decoration: none; font-weight: 600; font-size: 13px;
+  }
+  .article-cat-tag:hover { text-decoration: none; background: rgba(79,195,247,0.2); }
+  .article-date { color: var(--text-secondary); }
+  .article-read-time { color: var(--text-secondary); }
+  .article-title { font-size: 2rem; line-height: 1.3; margin: 0 0 12px; }
+  .article-desc { font-size: 16px; color: var(--text-secondary); line-height: 1.6; }
+
+  .article-layout { display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: start; }
+  .article-sidebar { position: sticky; top: 80px; }
+  .article-body { font-size: 16px; line-height: 1.85; min-width: 0; }
+  .article-body :global(h2) { font-size: 1.5rem; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .article-body :global(h3) { font-size: 1.2rem; margin: 28px 0 12px; }
+  .article-body :global(p) { margin: 14px 0; }
+  .article-body :global(ul), .article-body :global(ol) { padding-left: 24px; margin: 14px 0; }
+  .article-body :global(li) { margin: 6px 0; }
+  .article-body :global(blockquote) {
+    border-left: 3px solid #4fc3f7; padding: 12px 16px; margin: 16px 0;
+    background: rgba(79,195,247,0.05); border-radius: 0 8px 8px 0; color: var(--text-secondary);
+  }
+  .article-body :global(strong) { color: var(--text); font-weight: 700; }
+  .article-body :global(img) { max-width: 100%; border-radius: 8px; }
+  .article-body :global(table) { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  .article-body :global(th), .article-body :global(td) { padding: 10px 14px; border: 1px solid var(--border); text-align: left; }
+  .article-body :global(th) { background: rgba(79,195,247,0.08); font-weight: 600; }
+  .article-body :global(a) { color: #4fc3f7; }
+  .article-body :global(pre) { background: #0d1b2a; border-radius: 8px; padding: 16px; overflow-x: auto; margin: 16px 0; }
+  .article-body :global(code) { font-family: 'Fira Code', 'Cascadia Code', monospace; font-size: 14px; }
+
+  @media (max-width: 768px) {
+    .article-layout { grid-template-columns: 1fr; }
+    .article-sidebar { position: static; order: -1; margin-bottom: 24px; }
+    .article-title { font-size: 1.5rem; }
+  }
+</style>

@@ -1,0 +1,25 @@
+[
+  {
+    "slug": "ozon-daily-pick-2026-05-12",
+    "title": "🏆 Ozon每日选品推荐 — 2026-05-12",
+    "date": "2026-05-12",
+    "excerpt": "## 数据概览\n- 数据来源: **Wildberries 平台真实销量排序** (v18 API)\n- 搜索关键词: 32个精确商品品类, 覆盖电子配件/运动/美妆/家居/母婴/服装\n- 采集商品: 8 款 (均分 4.8/5.0, 均价 516 ₽ / ≈47 CNY)\n- 热门细分类目: 男款",
+    "cat": "ozon-pick",
+    "sub": "daily-select",
+    "featured": true,
+    "verified": false,
+    "source": "Wildberries v18 API",
+    "source_name": "猫明之主"
+  },
+  {
+    "slug": "ozon-daily-pick-2026-05-11",
+    "title": "🏆 Ozon每日选品推荐 — 2026-05-11",
+    "date": "2026-05-11",
+    "excerpt": "WB真实销量数据: iPhone硅胶壳(¥8.9/4.8星/3625评)、无线耳机(¥41.1/4.6星)、智能插座(¥63.0/4.9星/17391评)...共3款精选商品",
+    "cat": "ozon-pick",
+    "sub": "daily-select",
+    "verified": false,
+    "source": "Wildberries v5 API",
+    "source_name": "猫明之主"
+  }
+]

@@ -1,0 +1,103 @@
+---
+// ============================================================
+// components/RelatedPosts.astro — 内链推荐
+// 数据来源: RAG 向量检索 + 同分类降级
+// ============================================================
+export interface Props {
+  currentSlug: string;
+  currentCat: string;
+  // 从 RAG retriever 获取的推荐文章列表
+  related?: { slug: string; title: string; cat: string; similarity?: number }[];
+  // 降级: 同分类最新文章
+  fallback?: { slug: string; title: string; date: string; cat: string }[];
+  maxItems?: number;
+}
+
+const { currentSlug, currentCat, related = [], fallback = [], maxItems = 3 } = Astro.props;
+
+// 优先用 RAG 结果，否则用同分类降级
+const items = (related.length > 0
+  ? related
+  : fallback.filter((p) => p.slug !== currentSlug)
+).slice(0, maxItems);
+
+const catLabels: Record<string, string> = {
+  'cross-border': '跨境教程',
+  'fitness': '每日健身',
+  'ai-news': 'AI学习',
+  'ozon-pick': 'Ozon选品',
+};
+---
+
+{items.length > 0 && (
+  <aside class="related-posts" aria-label="相关文章推荐">
+    <h3 class="related-title">📖 相关阅读</h3>
+    <div class="related-grid">
+      {items.map((p) => (
+        <a href={`/post/${p.slug}`} class="related-card">
+          <span class="related-cat">
+            {catLabels[p.cat] || p.cat}
+            {p.similarity !== undefined && p.similarity > 0.7 && (
+              <span class="related-score" title={`相关度 ${Math.round(p.similarity * 100)}%`}>
+                {Math.round(p.similarity * 100)}% 匹配
+              </span>
+            )}
+          </span>
+          <span class="related-post-title">{p.title}</span>
+        </a>
+      ))}
+    </div>
+  </aside>
+)}
+
+<style>
+  .related-posts {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border, #2a3a4a);
+  }
+  .related-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: var(--text, #eee);
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    background: var(--card-bg, #1a2332);
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .related-card:hover {
+    border-color: var(--accent, #4fc3f7);
+    transform: translateY(-2px);
+  }
+  .related-cat {
+    font-size: 12px;
+    color: var(--accent, #4fc3f7);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .related-score {
+    font-size: 11px;
+    background: rgba(79, 195, 247, 0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .related-post-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text, #eee);
+    line-height: 1.4;
+  }
+</style>

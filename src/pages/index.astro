@@ -1,0 +1,70 @@
+---
+// ============================================================
+// pages/index.astro — 首页 (文章列表 + 精选卡片)
+// ============================================================
+import Layout from '../components/Layout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getAllPosts, paginatePosts, getCatLabel } from '../lib/posts';
+
+const allPosts = await getAllPosts();
+const page = 1; // 首页固定第 1 页
+const { items, total, hasNext } = paginatePosts(allPosts, page, 10);
+
+// 各分类统计
+const catCounts: Record<string, number> = {};
+for (const p of allPosts) {
+  catCounts[p.cat] = (catCounts[p.cat] || 0) + 1;
+}
+
+const siteAgeDays = Math.ceil(
+  (Date.now() - new Date('2025-09-05').getTime()) / 86400000
+);
+---
+
+<Layout title="猫明之主 · 跨境电商 & 健身 & AI学习" canonical="https://20020426.top">
+  <!-- Hero -->
+  <section class="hero">
+    <h1>猫明之主</h1>
+    <p>跨境电商实战 · 徒手健身 · AI学习 · Ozon选品 · 每天进步一点点</p>
+  </section>
+
+  <!-- 分类 Tab -->
+  <nav class="cat-tabs" aria-label="分类导航">
+    <a href="/" class="cat-tab active" aria-current="page">
+      全部 ({allPosts.length})
+    </a>
+    {Object.entries(catCounts).map(([cat, count]) => {
+      const label = getCatLabel(cat);
+      return (
+        <a href={`/category/${cat}`} class="cat-tab">
+          {label.icon} {label.name} ({count})
+        </a>
+      );
+    })}
+  </nav>
+
+  <!-- 站点统计 -->
+  <p style="text-align:center;color:var(--text-secondary);font-size:14px;margin:0 0 16px">
+    📝 {allPosts.length} 篇文章 · 📅 已运行 {siteAgeDays} 天 · 🕊️ 安静学习，温柔生长
+  </p>
+
+  <!-- 文章列表 -->
+  {items.length > 0 ? (
+    <div class="post-grid">
+      {items.map((post) => <PostCard post={post} />)}
+    </div>
+  ) : (
+    <div style="text-align:center;padding:48px 0;color:var(--text-secondary)">
+      <p style="font-size:48px;margin-bottom:16px">📝</p>
+      <p>还没有文章，生成第一篇吧！</p>
+    </div>
+  )}
+
+  <!-- 分页 -->
+  {total > 1 && (
+    <nav class="pagination" aria-label="分页导航">
+      <span class="current">1</span>
+      {hasNext && <a href="/page/2">2 →</a>}
+    </nav>
+  )}
+</Layout>

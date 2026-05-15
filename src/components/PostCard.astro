@@ -1,0 +1,25 @@
+---
+// ============================================================
+// components/PostCard.astro — 文章卡片
+// ============================================================
+import { getCatLabel } from '../lib/posts';
+import type { Post } from '../lib/posts';
+
+const { post } = Astro.props as { post: Post };
+const cat = getCatLabel(post.cat);
+const url = `/post/${post.slug}`;
+const cleanExcerpt = post.excerpt
+  ? post.excerpt.replace(/<[^>]+>/g, '').replace(/[#*`]/g, '').slice(0, 200)
+  : '';
+---
+
+<a href={url} class="post-card">
+  <span class="post-card-cat">{cat.icon} {cat.name}</span>
+  <span class="post-card-title">{post.title}</span>
+  {cleanExcerpt && <p class="post-card-excerpt">{cleanExcerpt}</p>}
+  <div class="post-card-meta">
+    <time datetime={post.date}>{post.date}</time>
+    {post.word_count && <span>{Math.ceil(post.word_count / 400)} 分钟阅读</span>}
+    {post.verified && <span style="color:var(--success)">✓ 已验证</span>}
+  </div>
+</a>

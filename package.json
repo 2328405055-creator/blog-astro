@@ -1,0 +1,21 @@
+{
+  "name": "blog-astro",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "猫明之主小站 · Astro 重构版 — 跨境电商 & 健身 & AI学习",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "sync": "astro sync"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.4.0",
+    "astro": "^5.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.8.0"
+  }
+}

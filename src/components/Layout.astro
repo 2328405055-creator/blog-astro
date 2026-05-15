@@ -1,0 +1,94 @@
+---
+// ============================================================
+// components/Layout.astro — 全局布局
+// ============================================================
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+}
+
+const {
+  title = '猫明之主',
+  description = '跨境电商实战 · 徒手健身 · AI资讯 · Ozon选品',
+  canonical = 'https://20020426.top',
+  ogImage = '/images/default-og.png',
+} = Astro.props;
+
+const navLinks = [
+  { href: '/', label: '全部' },
+  { href: '/category/cross-border', label: '🌏 跨境' },
+  { href: '/category/fitness', label: '💪 健身' },
+  { href: '/category/ai-news', label: '🤖 AI' },
+  { href: '/category/ozon-pick', label: '🛒 Ozon' },
+];
+
+// Highlight active nav
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description.slice(0, 160)} />
+  <meta name="keywords" content="跨境电商,Ozon,Wildberries,俄罗斯,选品,健身,AI,人工智能" />
+  <meta name="theme-color" content="#0a1628" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐱</text></svg>" />
+  <link rel="canonical" href={canonical} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description.slice(0, 160)} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description.slice(0, 160)} />
+
+  <!-- 预连接 (性能) -->
+  <link rel="dns-prefetch" href="//open.er-api.com" />
+
+  <slot name="head" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">跳到主要内容</a>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="site-logo">🐱 猫明之主</a>
+      <nav class="site-nav" aria-label="主导航">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'nav-link',
+              { active: currentPath === link.href },
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主内容 -->
+  <main id="main-content" class="container">
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>猫明之主 · 20020426.top · 安静学习，温柔生长</p>
+    <p style="margin-top:4px;font-size:12px">© {new Date().getFullYear()} 猫明之主 | 内容仅供学习参考</p>
+  </footer>
+</body>
+</html>

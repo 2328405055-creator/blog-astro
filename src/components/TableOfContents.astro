@@ -1,0 +1,107 @@
+---
+// ============================================================
+// components/TableOfContents.astro — 浮动 TOC
+// 特性: IntersectionObserver 高亮 + 折叠 + 平滑滚动
+// ============================================================
+export interface Props {
+  headings: { depth: number; text: string; id: string }[];
+  minDepth?: number; // 最小显示深度 (默认 2=h2)
+}
+
+const { headings, minDepth = 2 } = Astro.props;
+const visibleHeadings = headings.filter((h) => h.depth >= minDepth && h.depth <= 3);
+---
+
+{
+  visibleHeadings.length > 1 && (
+    <nav class="toc" aria-label="文章目录">
+      <div class="toc-header">
+        <span class="toc-title">📑 目录</span>
+        <button class="toc-toggle" aria-label="折叠目录" id="tocToggle">−</button>
+      </div>
+      <ul class="toc-list" id="tocList">
+        {visibleHeadings.map((h) => (
+          <li class={`toc-item toc-depth-${h.depth}`}>
+            <a href={`#${h.id}`} data-toc={h.id}>
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<script>
+  // IntersectionObserver — 滚动高亮当前章节
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-toc]');
+  if (links.length > 0) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const link = document.querySelector(`[data-toc="${entry.target.id}"]`);
+          if (link) {
+            link.classList.toggle('toc-active', entry.isIntersecting);
+          }
+        }
+      },
+      { rootMargin: '-80px 0px -70% 0px', threshold: 0 }
+    );
+    for (const link of links) {
+      const target = document.getElementById(link.dataset.toc!);
+      if (target) observer.observe(target);
+    }
+  }
+
+  // 折叠切换
+  document.getElementById('tocToggle')?.addEventListener('click', () => {
+    const list = document.getElementById('tocList')!;
+    const btn = document.getElementById('tocToggle')!;
+    const collapsed = list.style.display === 'none';
+    list.style.display = collapsed ? '' : 'none';
+    btn.textContent = collapsed ? '−' : '+';
+    btn.setAttribute('aria-label', collapsed ? '折叠目录' : '展开目录');
+  });
+</script>
+
+<style>
+  .toc {
+    position: sticky;
+    top: 24px;
+    background: var(--card-bg, #1a2332);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border, #2a3a4a);
+  }
+  .toc-title { font-weight: 700; font-size: 15px; }
+  .toc-toggle {
+    background: none; border: 1px solid var(--border, #2a3a4a);
+    color: var(--text, #ccc); border-radius: 4px; width: 28px; height: 28px;
+    cursor: pointer; font-size: 16px; line-height: 1;
+  }
+  .toc-list { list-style: none; padding: 0; margin: 0; }
+  .toc-item { margin: 4px 0; }
+  .toc-depth-3 { padding-left: 16px; }
+  .toc-item a {
+    color: var(--text-secondary, #8899aa); text-decoration: none;
+    display: block; padding: 3px 6px; border-radius: 4px; transition: all 0.15s;
+    border-left: 2px solid transparent;
+  }
+  .toc-item a:hover { color: var(--text, #eee); background: rgba(255,255,255,0.05); }
+  .toc-item a.toc-active {
+    color: var(--accent, #4fc3f7); font-weight: 600;
+    background: rgba(79, 195, 247, 0.08); border-left-color: var(--accent, #4fc3f7);
+  }
+</style>
