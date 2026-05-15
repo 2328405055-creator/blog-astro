@@ -52,12 +52,15 @@ def load_config():
             for k, v in file_cfg.items():
                 if k in config and not config[k]:
                     config[k] = v
-    # 3. 系统环境变量覆盖
+    # 3. 系统环境变量覆盖 (仅当非空时才覆盖)
     for key in config:
         env_val = os.environ.get(f"BLOG_{key.upper()}")
-        if env_val is not None:
+        if env_val:  # 跳过空字符串和 None
             if key in ("target_words", "scrape_timeout"):
-                config[key] = int(env_val)
+                try:
+                    config[key] = int(env_val)
+                except ValueError:
+                    pass  # 保持 .env 中的值
             elif key == "enrich_enabled":
                 config[key] = env_val.lower() in ("1", "true", "yes")
             else:
