@@ -1,0 +1,1121 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>今晚吃什么 · 猫明之主</title>
+  <meta name="description" content="中式饭菜智能生成器：输入已有食材推荐真实菜名，告诉你能不能马上做、还差什么。支持随机推荐、收藏、烹饪步骤。">
+  <meta property="og:title" content="今晚吃什么 · 中式饭菜生成器">
+  <meta property="og:description" content="输入已有食材推荐真实菜名，100+道家常菜，帮你决定今晚吃什么。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#2f6b45">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+  <style>
+    :root {
+      --ink: #18231d;
+      --muted: #667168;
+      --line: #d9ded5;
+      --paper: #fbfaf4;
+      --panel: #fffefa;
+      --surface: #fff;
+      --green: #2f6b45;
+      --red: #b84733;
+      --gold: #be842b;
+      --blue: #315f72;
+      --soft: #edf4ed;
+      --soft-warm: #fff8ee;
+      --shadow: 0 18px 48px rgba(32, 39, 34, .12);
+      --shadow-sm: 0 4px 12px rgba(32, 39, 34, .06);
+      --radius: 10px;
+    }
+
+    [data-theme="dark"] {
+      --ink: #e8ede6;
+      --muted: #99a89b;
+      --line: #3a4a3c;
+      --paper: #1a231c;
+      --panel: #1e2a21;
+      --surface: #243028;
+      --soft: #263a2a;
+      --soft-warm: #2e2a1e;
+      --shadow: 0 18px 48px rgba(0, 0, 0, .35);
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, .25);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      transition: background .3s, color .3s;
+    }
+
+    button, textarea, select { font: inherit; color: inherit; }
+
+    /* ── 顶部导航 ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+    .topbar a {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .topbar a:hover { opacity: .75; }
+    .topbar .brand { font-size: 18px; color: var(--ink); }
+    .topbar-actions { display: flex; gap: 8px; align-items: center; }
+    .theme-btn, .fav-btn {
+      width: 38px; height: 38px; border-radius: 8px; border: 1px solid var(--line);
+      background: var(--surface); cursor: pointer; font-size: 18px;
+      display: grid; place-items: center; transition: .2s;
+    }
+    .theme-btn:hover, .fav-btn:hover { border-color: var(--green); }
+
+    /* ── 主体 ── */
+    .shell {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 60px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+    .sub {
+      margin: 8px 0 0;
+      max-width: 780px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+    .stat {
+      min-width: 130px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 16px;
+      background: var(--surface);
+      text-align: center;
+      color: var(--muted);
+    }
+    .stat b {
+      display: block;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(300px, 400px) 1fr;
+      gap: 24px;
+      margin-top: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .controls {
+      padding: 20px;
+      position: sticky;
+      top: 72px;
+    }
+
+    .switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+    .switch button {
+      min-height: 38px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 900;
+      font-size: 14px;
+      transition: .2s;
+    }
+    .switch button.active {
+      background: var(--green);
+      color: #fff;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink);
+      outline: none;
+    }
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      padding: 12px 14px;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    select {
+      min-height: 40px;
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+    textarea:focus, select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(47,107,69,.14);
+    }
+    .hint {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .checks {
+      display: grid;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .check {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 13px;
+    }
+    .check input {
+      width: 17px; height: 17px;
+      accent-color: var(--green);
+    }
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 44px 44px;
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .primary, .icon-btn {
+      min-height: 46px;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform .16s, box-shadow .16s;
+      font-weight: 900;
+    }
+    .primary {
+      background: var(--green);
+      color: white;
+      box-shadow: 0 10px 24px rgba(47,107,69,.22);
+      font-size: 15px;
+    }
+    .icon-btn {
+      background: var(--soft);
+      color: var(--green);
+      font-size: 20px;
+    }
+    .primary:hover, .icon-btn:hover { transform: translateY(-1px); }
+    .primary:active, .icon-btn:active { transform: translateY(0); }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: var(--muted);
+      background: var(--surface);
+      font-size: 12px;
+    }
+
+    /* ── 结果区域 ── */
+    .result { min-height: 540px; overflow: hidden; }
+
+    .decision {
+      display: grid;
+      grid-template-columns: 1.06fr .94fr;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .picked { padding: 28px; }
+    .kicker {
+      margin: 0 0 8px;
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 900;
+    }
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 56px);
+      line-height: 1.05;
+      overflow-wrap: anywhere;
+    }
+    .answer {
+      margin: 16px 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 16px;
+    }
+    .badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .badge.need { background: #fff1df; color: #9d5e17; }
+    .badge.buy { background: #f7e5e0; color: var(--red); }
+    [data-theme="dark"] .badge.need { background: #3d2a14; color: #e8a740; }
+    [data-theme="dark"] .badge.buy { background: #3d1a1a; color: #e07060; }
+
+    .cover {
+      min-height: 280px;
+      display: grid;
+      place-items: center;
+      border-left: 1px solid var(--line);
+      background: radial-gradient(circle at 30% 28%, rgba(255,255,255,.72), transparent 33%),
+                  linear-gradient(135deg, #e7efe2, #efd29b 58%, #cc5741);
+    }
+    [data-theme="dark"] .cover {
+      background: radial-gradient(circle at 30% 28%, rgba(40,50,40,.7), transparent 33%),
+                  linear-gradient(135deg, #2a3a28, #4a3820 58%, #5a2820);
+    }
+    .plate {
+      width: min(240px, 72%);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #fffdf7;
+      box-shadow: inset 0 0 0 14px #ece6d8, 0 20px 38px rgba(63,45,29,.18);
+      position: relative;
+    }
+    [data-theme="dark"] .plate {
+      background: #2a2a22;
+      box-shadow: inset 0 0 0 14px #3a3a30, 0 20px 38px rgba(0,0,0,.3);
+    }
+    .plate::before, .plate::after {
+      content: ""; position: absolute; border-radius: 999px;
+    }
+    .plate::before {
+      width: 48%; height: 30%; left: 24%; top: 27%;
+      background: var(--dish-color, #bd4737);
+      box-shadow: 38px 38px 0 -10px var(--dish-accent, #2f6b45), -18px 58px 0 -12px #d6a13a;
+      transform: rotate(-13deg);
+    }
+    .plate::after {
+      width: 54%; height: 12px; left: 23%; bottom: 26%;
+      background: rgba(23,33,27,.18); filter: blur(8px);
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--line);
+    }
+    .meta div {
+      padding: 16px 18px;
+      border-right: 1px solid var(--line);
+    }
+    .meta div:last-child { border-right: 0; }
+    .meta b { display: block; margin-bottom: 6px; font-size: 14px; }
+    .meta span { color: var(--muted); line-height: 1.65; font-size: 13px; }
+
+    /* ── 烹饪步骤 ── */
+    .steps-section {
+      padding: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .steps-section h3 { margin: 0 0 12px; font-size: 17px; }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .step {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px;
+      background: var(--surface);
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 12px;
+    }
+    .step small { color: var(--muted); }
+
+    /* ── 候选列表 ── */
+    .list { padding: 20px; }
+    .list-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .list-head h3 { margin: 0; font-size: 17px; }
+    .list-head span { color: var(--muted); font-size: 13px; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .card {
+      min-height: 120px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+      transition: .2s;
+    }
+    .card:hover {
+      border-color: rgba(47,107,69,.55);
+      box-shadow: var(--shadow-sm);
+    }
+    .card b { display: block; line-height: 1.45; overflow-wrap: anywhere; font-size: 14px; }
+    .card small { color: var(--muted); line-height: 1.55; font-size: 12px; }
+    .card .fav-star {
+      align-self: flex-end;
+      color: var(--gold);
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .empty {
+      padding: 36px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .empty h2 { color: var(--ink); font-size: clamp(24px, 4vw, 38px); }
+
+    /* ── 收藏弹窗 ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.45);
+      z-index: 100;
+      place-items: center;
+    }
+    .modal-overlay.open { display: grid; }
+    .modal {
+      width: min(560px, 90vw);
+      max-height: 70vh;
+      background: var(--panel);
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .modal h3 { margin: 0 0 12px; }
+    .modal-close {
+      float: right;
+      border: 0; background: none;
+      font-size: 22px; cursor: pointer;
+      color: var(--muted);
+    }
+    .fav-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+    .fav-item button {
+      border: 0; background: none; cursor: pointer;
+      color: var(--red); font-size: 14px;
+    }
+    .fav-empty { color: var(--muted); padding: 20px 0; text-align: center; }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+      background: var(--ink); color: var(--paper);
+      padding: 10px 22px; border-radius: 999px;
+      font-size: 14px; font-weight: 900;
+      z-index: 200; opacity: 0; transition: opacity .3s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+
+    @media (max-width: 880px) {
+      header, main, .decision, .meta { grid-template-columns: 1fr; }
+      .controls { position: static; }
+      .cover { border-left: 0; border-top: 1px solid var(--line); min-height: 200px; }
+      .meta div { border-right: 0; border-bottom: 1px solid var(--line); }
+      .meta div:last-child { border-bottom: 0; }
+    }
+    @media (max-width: 520px) {
+      .shell { width: min(100% - 16px, 1200px); padding-top: 12px; }
+      .row, .actions { grid-template-columns: 1fr; }
+      .picked { padding: 20px; }
+      .steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 顶部导航栏 -->
+<div class="topbar">
+  <a href="index.html">← 返回小站</a>
+  <span class="brand">🍳 今晚吃什么</span>
+  <div class="topbar-actions">
+    <button class="fav-btn" id="favBtn" title="我的收藏" aria-label="我的收藏">⭐</button>
+    <button class="theme-btn" id="themeBtn" title="切换主题" aria-label="切换暗色/亮色模式">🌙</button>
+  </div>
+</div>
+
+<div class="shell">
+  <header>
+    <div>
+      <h1>今晚吃什么</h1>
+      <p class="sub">输入你手头的食材，推荐真实菜名并告诉你能不能马上做、还差什么。100+ 道中式家常菜，涵盖下饭菜、主食、汤羹、凉菜。不输入也能一键拍板。</p>
+    </div>
+    <div class="stat"><b id="dishCount">0</b>道真实菜名</div>
+  </header>
+
+  <main>
+    <section class="panel controls">
+      <div class="switch" aria-label="生成模式">
+        <button id="modeIngredient" class="active" type="button">按食材推荐</button>
+        <button id="modeRandom" type="button">随便来一道</button>
+      </div>
+
+      <div id="ingredientBox">
+        <label for="ingredients">你现在有什么</label>
+        <textarea id="ingredients" placeholder="例如：鸡蛋、土豆、猪肉、米饭"></textarea>
+        <p class="hint">只输入"鸡蛋"也可以，会推荐西红柿炒鸡蛋、韭黄炒蛋等，并标出需要补买什么。</p>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="category">想吃类型</label>
+          <select id="category">
+            <option value="">不限</option>
+            <option value="菜">下饭菜</option>
+            <option value="主食">主食</option>
+            <option value="汤">汤羹</option>
+            <option value="凉菜">凉菜</option>
+            <option value="小食">小吃点心</option>
+          </select>
+        </div>
+        <div>
+          <label for="effort">做饭状态</label>
+          <select id="effort">
+            <option value="">都行</option>
+            <option value="快手">只想快点吃</option>
+            <option value="家常">正常做一顿</option>
+            <option value="费点工夫">今天有耐心</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="checks">
+        <label class="check"><input id="allowBuy" type="checkbox" checked> 允许补买 1-2 样关键食材</label>
+        <label class="check"><input id="preferReady" type="checkbox" checked> 优先推荐现在就能做的</label>
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="decide" type="button">帮我决定</button>
+        <button class="icon-btn" id="again" type="button" title="换一道" aria-label="换一道">↻</button>
+        <button class="icon-btn" id="favAdd" type="button" title="收藏这道菜" aria-label="收藏">♡</button>
+      </div>
+
+      <div class="chips" id="chips"></div>
+    </section>
+
+    <section class="panel result" aria-live="polite" id="result"></section>
+  </main>
+</div>
+
+<!-- 收藏弹窗 -->
+<div class="modal-overlay" id="favModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeFavModal()">✕</button>
+    <h3>⭐ 我的收藏</h3>
+    <div id="favList"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  数据层
+// ══════════════════════════════════════════
+
+const aliases = new Map(Object.entries({
+  "番茄":"西红柿","洋芋":"土豆","马铃薯":"土豆","青椒":"辣椒","尖椒":"辣椒",
+  "杭椒":"辣椒","卷心菜":"包菜","圆白菜":"包菜","小白菜":"白菜","娃娃菜":"白菜",
+  "油菜":"青菜","小青菜":"青菜","上海青":"青菜","瘦肉":"猪肉","肉丝":"猪肉",
+  "肉片":"猪肉","肉末":"猪肉","五花":"五花肉","鸡肉":"鸡腿肉","鸡胸":"鸡胸肉",
+  "米":"大米","剩饭":"米饭","白饭":"米饭","挂面":"面条","面":"面条",
+  "红薯粉":"粉丝","粉条":"粉丝","香葱":"葱","大葱":"葱","鸡蛋":"鸡蛋",
+  "青瓜":"黄瓜","西兰花":"西兰花","花菜":"花菜","菜花":"花菜","圆椒":"甜椒",
+  "生粉":"淀粉","姜":"姜","蒜":"蒜","干辣椒":"辣椒"
+}));
+
+const pantry = ["油","盐","糖","酱油","生抽","老抽","醋","料酒","淀粉","葱","姜","蒜","辣椒","花椒","胡椒粉","蚝油","香油","豆瓣酱","鸡精","味精"];
+
+// 菜品数据库 — 120 道
+const dishes = [
+  // ══ 蛋类 ══
+  { name:"西红柿炒鸡蛋", type:"菜", effort:"快手", time:"10分钟", mains:["鸡蛋","西红柿"], optional:["葱"], taste:"酸甜", staple:"米饭", reason:"鸡蛋一出现，它就是最稳的家常答案之一。", steps:["鸡蛋打散加少许盐搅匀","西红柿切块，热油炒蛋盛出","炒西红柿出汁后倒回蛋，翻炒均匀出锅"] },
+  { name:"韭黄炒蛋", type:"菜", effort:"快手", time:"10分钟", mains:["鸡蛋","韭黄"], optional:[], taste:"鲜香", staple:"米饭", reason:"韭黄和鸡蛋是经典组合，香味足。", steps:["韭黄洗净切段","鸡蛋打散，热油炒至凝固","加入韭黄快炒30秒，盐调味出锅"] },
+  { name:"韭菜炒鸡蛋", type:"菜", effort:"快手", time:"9分钟", mains:["鸡蛋","韭菜"], optional:[], taste:"鲜香", staple:"米饭", reason:"想吃带香气的蛋菜，韭菜炒鸡蛋很直接。", steps:["韭菜洗净切段","鸡蛋打散加盐，热油炒熟","加入韭菜翻炒30秒即可"] },
+  { name:"青椒炒鸡蛋", type:"菜", effort:"快手", time:"8分钟", mains:["鸡蛋","辣椒"], optional:["蒜"], taste:"微辣", staple:"米饭", reason:"鸡蛋配辣椒，便宜、快、下饭。", steps:["辣椒切丝，鸡蛋打散","热油炒蛋盛出","炒辣椒至断生，倒回蛋翻炒"] },
+  { name:"虾仁炒蛋", type:"菜", effort:"快手", time:"12分钟", mains:["鸡蛋","虾仁"], optional:["葱"], taste:"鲜嫩", staple:"米饭", reason:"想让鸡蛋吃得更像样，加虾仁就够了。", steps:["虾仁用料酒淀粉腌5分钟","鸡蛋打散，虾仁滑炒变色","倒入蛋液一起炒至凝固，盐调味"] },
+  { name:"黄瓜炒鸡蛋", type:"菜", effort:"快手", time:"10分钟", mains:["鸡蛋","黄瓜"], optional:["蒜"], taste:"清爽", staple:"米饭", reason:"比西红柿炒蛋更清淡。", steps:["黄瓜切片，鸡蛋打散","热油炒蛋盛出","炒黄瓜片1分钟，倒回蛋翻炒"] },
+  { name:"洋葱炒鸡蛋", type:"菜", effort:"快手", time:"10分钟", mains:["鸡蛋","洋葱"], optional:[], taste:"甜香", staple:"米饭", reason:"洋葱炒软带甜味，和蛋很搭。", steps:["洋葱切丝，鸡蛋打散","热油炒洋葱至软出甜味","倒入蛋液翻炒均匀，盐调味"] },
+  { name:"苦瓜炒蛋", type:"菜", effort:"快手", time:"12分钟", mains:["鸡蛋","苦瓜"], optional:[], taste:"清苦", staple:"米饭", reason:"清爽又下火。", steps:["苦瓜去瓤切薄片，盐水泡10分钟去苦","鸡蛋打散，热油炒蛋盛出","炒苦瓜至变色，倒回蛋翻炒"] },
+  { name:"胡萝卜炒鸡蛋", type:"菜", effort:"快手", time:"12分钟", mains:["鸡蛋","胡萝卜"], optional:["葱"], taste:"清甜", staple:"米饭", reason:"胡萝卜切细丝快炒，颜色好看。", steps:["胡萝卜切细丝，鸡蛋打散","热油炒蛋盛出","炒胡萝卜丝至软，倒回蛋翻炒"] },
+  { name:"蒸水蛋", type:"菜", effort:"快手", time:"15分钟", mains:["鸡蛋"], optional:["葱","生抽"], taste:"嫩滑", staple:"米饭", reason:"最简单的蛋料理，嫩滑下饭。", steps:["鸡蛋打散加1.5倍温水搅匀，加盐","过筛去泡沫，盖上保鲜膜","水开后中火蒸10-12分钟，淋生抽香油"] },
+  { name:"蛋炒饭", type:"主食", effort:"快手", time:"10分钟", mains:["鸡蛋","米饭"], optional:["葱","胡萝卜","火腿肠"], taste:"咸香", staple:"单吃", reason:"有剩米饭和鸡蛋，最快的一餐。", steps:["鸡蛋打散，葱切葱花","热油炒蛋碎盛出","炒米饭至粒粒分明，加蛋碎葱花翻匀"] },
+  { name:"番茄鸡蛋面", type:"主食", effort:"快手", time:"15分钟", mains:["鸡蛋","西红柿","面条"], optional:["青菜"], taste:"酸香", staple:"单吃", reason:"一锅热乎的，省事但很像样。", steps:["西红柿切块，鸡蛋打散","热油炒西红柿出汁，加水煮开","下面条煮熟，淋入蛋液成蛋花"] },
+  { name:"西红柿鸡蛋汤", type:"汤", effort:"快手", time:"10分钟", mains:["鸡蛋","西红柿"], optional:["葱"], taste:"清爽", staple:"米饭", reason:"同样食材，不想炒就做汤。", steps:["西红柿切块，鸡蛋打散","热油炒西红柿出汁，加水煮开","淋入蛋液搅成蛋花，盐调味"] },
+  { name:"紫菜蛋花汤", type:"汤", effort:"快手", time:"8分钟", mains:["鸡蛋","紫菜"], optional:["虾皮"], taste:"鲜香", staple:"米饭", reason:"需要快汤时，蛋花汤非常稳。", steps:["紫菜撕碎，鸡蛋打散","水烧开加紫菜虾皮","淋入蛋液搅匀，加盐香油出锅"] },
+
+  // ══ 猪肉类 ══
+  { name:"青椒肉丝", type:"菜", effort:"家常", time:"18分钟", mains:["猪肉","辣椒"], optional:["姜","淀粉"], taste:"咸香", staple:"米饭", reason:"不知道肉怎么吃，青椒肉丝永远能接住。", steps:["肉切丝用料酒淀粉腌10分钟","辣椒切丝","热油滑炒肉丝变色盛出，炒辣椒后合炒调味"] },
+  { name:"鱼香肉丝", type:"菜", effort:"家常", time:"25分钟", mains:["猪肉","木耳","胡萝卜"], optional:["豆瓣酱","醋"], taste:"鱼香", staple:"米饭", reason:"想吃热闹一点的下饭菜。", steps:["肉切丝腌好，木耳胡萝卜切丝","调鱼香汁:生抽醋糖淀粉水","热油炒肉丝，加豆瓣酱炒红油，下配菜淋汁收浓"] },
+  { name:"蒜薹炒肉", type:"菜", effort:"家常", time:"18分钟", mains:["蒜薹","猪肉"], optional:["姜"], taste:"鲜香", staple:"米饭", reason:"蒜薹本身够香，配肉很自然。", steps:["蒜薹切段，肉切片腌好","热油炒肉片变色盛出","炒蒜薹至断生，合炒调味"] },
+  { name:"芹菜炒肉", type:"菜", effort:"家常", time:"16分钟", mains:["芹菜","猪肉"], optional:["姜"], taste:"清香", staple:"米饭", reason:"芹菜快炒，有香气也不腻。", steps:["芹菜去叶切段，肉切片腌好","热油炒肉片盛出","炒芹菜1分钟，合炒调味"] },
+  { name:"木耳炒肉", type:"菜", effort:"家常", time:"18分钟", mains:["木耳","猪肉"], optional:["辣椒","蒜"], taste:"咸鲜", staple:"米饭", reason:"木耳脆、肉片香，很稳。", steps:["木耳提前泡发撕小朵","肉切片腌好","热油炒肉片，加木耳翻炒，调味"] },
+  { name:"回锅肉", type:"菜", effort:"费点工夫", time:"28分钟", mains:["五花肉","蒜苗"], optional:["豆瓣酱","辣椒"], taste:"酱香", staple:"米饭", reason:"五花肉和蒜苗在一起就是明确答案。", steps:["五花肉整块煮至八成熟，切薄片","热锅少油煸炒肉片至卷曲出油","加豆瓣酱炒出红油，下蒜苗辣椒翻炒"] },
+  { name:"农家小炒肉", type:"菜", effort:"家常", time:"20分钟", mains:["五花肉","辣椒"], optional:["蒜"], taste:"香辣", staple:"米饭", reason:"想吃辣口肉菜又不想炖太久。", steps:["五花肉切薄片，辣椒斜切","热锅少油煸肉片出油","下辣椒蒜爆炒，加生抽老抽调味"] },
+  { name:"红烧肉", type:"菜", effort:"费点工夫", time:"60分钟", mains:["五花肉"], optional:["冰糖","料酒"], taste:"酱香", staple:"米饭", reason:"有五花肉和时间，红烧肉就是硬菜。", steps:["五花肉切块焯水","炒糖色至琥珀色下肉翻炒上色","加料酒生抽老抽热水，小火炖50分钟收汁"] },
+  { name:"肉末茄子", type:"菜", effort:"家常", time:"22分钟", mains:["茄子","猪肉"], optional:["豆瓣酱","蒜"], taste:"酱香", staple:"米饭", reason:"茄子和肉末很下饭。", steps:["茄子切条，肉剁末","热油煸茄子至软盛出","炒肉末加豆瓣酱，倒回茄子翻炒"] },
+  { name:"蚂蚁上树", type:"菜", effort:"家常", time:"20分钟", mains:["粉丝","猪肉"], optional:["豆瓣酱","葱"], taste:"咸香", staple:"米饭", reason:"粉丝吸味，肉末增加满足感。", steps:["粉丝温水泡软剪段，肉剁末","热油炒肉末变色，加豆瓣酱炒红油","加少量水放粉丝，煮至吸汁撒葱花"] },
+  { name:"糖醋里脊", type:"菜", effort:"费点工夫", time:"30分钟", mains:["猪肉"], optional:["番茄酱","醋","糖"], taste:"酸甜", staple:"米饭", reason:"想吃酸甜口，里脊是最佳选择。", steps:["肉切条用料酒盐腌15分钟","调面糊裹肉条，炸至金黄","炒糖醋汁(番茄酱醋糖)至浓稠，倒入肉条翻匀"] },
+  { name:"京酱肉丝", type:"菜", effort:"家常", time:"22分钟", mains:["猪肉","大葱"], optional:["甜面酱"], taste:"酱香", staple:"米饭", reason:"酱香浓郁，配葱丝很经典。", steps:["肉切丝腌好","大葱白切细丝铺盘底","热油炒肉丝变白，加甜面酱生抽翻炒，盛在葱丝上"] },
+  { name:"木须肉", type:"菜", effort:"家常", time:"20分钟", mains:["猪肉","鸡蛋","木耳","黄花菜"], optional:["黄瓜"], taste:"咸鲜", staple:"米饭", reason:"食材丰富，一盘搞定荤素搭配。", steps:["肉切片腌好，木耳黄花菜泡发","鸡蛋炒熟盛出","炒肉片加配菜，倒回蛋翻炒调味"] },
+
+  // ══ 鸡肉类 ══
+  { name:"宫保鸡丁", type:"菜", effort:"家常", time:"25分钟", mains:["鸡胸肉","花生米"], optional:["黄瓜","胡萝卜","辣椒"], taste:"酸甜微辣", staple:"米饭", reason:"想吃有口感的鸡肉菜。", steps:["鸡胸肉切丁用料酒淀粉腌","花生米小火炒至金黄","调宫保汁:生抽醋糖淀粉水，炒鸡丁加辣椒花椒淋汁翻匀撒花生"] },
+  { name:"辣子鸡丁", type:"菜", effort:"费点工夫", time:"35分钟", mains:["鸡腿肉","辣椒"], optional:["花椒"], taste:"香辣", staple:"米饭", reason:"想吃香辣有存在感的菜。", steps:["鸡腿肉切丁腌好","热油炸鸡丁至金黄","锅中留底油爆香花椒干辣椒，倒回鸡丁翻炒"] },
+  { name:"可乐鸡翅", type:"菜", effort:"家常", time:"28分钟", mains:["鸡翅","可乐"], optional:["姜"], taste:"甜咸", staple:"米饭", reason:"鸡翅和可乐齐了，答案非常明确。", steps:["鸡翅划刀焯水","热油煎鸡翅两面金黄","倒可乐没过鸡翅，加生抽姜片，中火收汁"] },
+  { name:"红烧鸡翅", type:"菜", effort:"家常", time:"30分钟", mains:["鸡翅"], optional:["姜","料酒"], taste:"酱香", staple:"米饭", reason:"没可乐也能做，红烧最稳。", steps:["鸡翅划刀焯水","炒糖色下鸡翅上色","加生抽老抽料酒热水，炖25分钟收汁"] },
+  { name:"土豆烧鸡块", type:"菜", effort:"费点工夫", time:"45分钟", mains:["土豆","鸡腿肉"], optional:["姜"], taste:"酱香", staple:"米饭", reason:"鸡肉土豆一起烧，饱腹又下饭。", steps:["鸡腿剁块焯水，土豆切滚刀块","炒糖色下鸡块翻炒","加土豆生抽老抽热水，炖35分钟"] },
+  { name:"香菇滑鸡", type:"菜", effort:"家常", time:"28分钟", mains:["香菇","鸡腿肉"], optional:["葱","姜"], taste:"鲜香", staple:"米饭", reason:"香菇把鸡肉鲜味托起来。", steps:["香菇泡发切片，鸡肉切块腌好","热油炒鸡块至变色","加香菇翻炒，加少许水焖10分钟，勾薄芡"] },
+  { name:"黄焖鸡", type:"菜", effort:"家常", time:"35分钟", mains:["鸡腿肉","香菇","土豆"], optional:["青椒"], taste:"酱香", staple:"米饭", reason:"一锅出的经典，汤汁拌饭绝了。", steps:["鸡腿剁块焯水，土豆香菇切块","炒糖色下鸡块上色","加土豆香菇生抽老抽，炖25分钟收浓汤汁"] },
+  { name:"口水鸡", type:"菜", effort:"家常", time:"30分钟", mains:["鸡腿肉"], optional:["花生米","辣椒油","芝麻"], taste:"麻辣", staple:"米饭", reason:"想吃凉菜口感的鸡肉。", steps:["鸡腿煮熟捞出冰水过凉，切块","调红油汁:辣椒油花椒油生抽醋糖蒜末","淋在鸡块上撒花生碎葱花"] },
+  { name:"葱油鸡", type:"菜", effort:"家常", time:"25分钟", mains:["鸡腿肉","葱"], optional:["姜"], taste:"葱香", staple:"米饭", reason:"葱香十足，做法简单。", steps:["鸡腿煮熟撕成条","大量葱切丝，热油炸葱油至金黄","葱油淋在鸡肉上，加生抽拌匀"] },
+
+  // ══ 牛羊肉 ══
+  { name:"洋葱炒牛肉", type:"菜", effort:"家常", time:"20分钟", mains:["洋葱","牛肉"], optional:["淀粉"], taste:"鲜甜", staple:"米饭", reason:"洋葱甜牛肉香，快炒就够。", steps:["牛肉逆纹切片用淀粉料酒腌","洋葱切丝","热油滑炒牛肉变色盛出，炒洋葱至软合炒调味"] },
+  { name:"葱爆羊肉", type:"菜", effort:"家常", time:"16分钟", mains:["羊肉","葱"], optional:["孜然"], taste:"葱香", staple:"米饭", reason:"羊肉片有了，葱爆很明确。", steps:["羊肉切片用料酒孜然腌","大葱切滚刀块","大火热油爆炒羊肉变色，下葱块快炒30秒出锅"] },
+  { name:"土豆炖牛肉", type:"菜", effort:"费点工夫", time:"70分钟", mains:["土豆","牛肉"], optional:["胡萝卜","洋葱"], taste:"浓香", staple:"米饭", reason:"有耐心时做它基本不会后悔。", steps:["牛肉切块焯水","炒糖色下牛肉上色","加足热水炖40分钟，加土豆胡萝卜再炖25分钟收汁"] },
+  { name:"萝卜炖牛腩", type:"菜", effort:"费点工夫", time:"80分钟", mains:["白萝卜","牛腩"], optional:["姜"], taste:"浓香", staple:"米饭", reason:"想吃扎实的，萝卜牛腩很适合。", steps:["牛腩切块焯水，白萝卜切滚刀","炒牛腩加生抽老抽料酒","加足热水炖50分钟，加萝卜再炖25分钟"] },
+  { name:"孜然牛肉", type:"菜", effort:"家常", time:"18分钟", mains:["牛肉","孜然"], optional:["辣椒","洋葱"], taste:"孜然香", staple:"米饭", reason:"想吃烧烤风味在家也能做。", steps:["牛肉切片腌好","热油滑炒牛肉至变色","加孜然粉辣椒粉洋葱翻炒"] },
+
+  // ══ 水产类 ══
+  { name:"清蒸鲈鱼", type:"菜", effort:"家常", time:"18分钟", mains:["鲈鱼"], optional:["葱","姜"], taste:"鲜嫩", staple:"米饭", reason:"鱼新鲜别复杂，清蒸最可靠。", steps:["鱼洗净划花刀，铺姜片葱段","水开上锅蒸8-10分钟","倒掉蒸鱼水，铺新葱丝淋热油和蒸鱼豉油"] },
+  { name:"红烧鲫鱼", type:"菜", effort:"家常", time:"30分钟", mains:["鲫鱼"], optional:["姜","葱"], taste:"酱香", staple:"米饭", reason:"想吃鱼又想拌饭。", steps:["鱼处理干净划花刀","热油煎鱼两面金黄","加生抽老抽料酒姜片水，烧15分钟收汁"] },
+  { name:"番茄鱼片", type:"菜", effort:"家常", time:"25分钟", mains:["鱼片","西红柿"], optional:["金针菇"], taste:"酸鲜", staple:"米饭", reason:"番茄酸味适合鱼片，清爽不腻。", steps:["鱼片用料酒淀粉腌","西红柿炒出汁加水煮开","下鱼片滑煮2分钟，盐调味"] },
+  { name:"红烧带鱼", type:"菜", effort:"家常", time:"25分钟", mains:["带鱼"], optional:["姜","葱"], taste:"酱香", staple:"米饭", reason:"带鱼红烧很经典。", steps:["带鱼段洗净用料酒腌","热油煎带鱼两面金黄","加生抽老抽醋糖姜片水，烧10分钟收汁"] },
+  { name:"西兰花炒虾仁", type:"菜", effort:"家常", time:"18分钟", mains:["西兰花","虾仁"], optional:["蒜"], taste:"清爽", staple:"米饭", reason:"想吃清淡蛋白质。", steps:["西兰花焯水，虾仁用料酒腌","热油滑炒虾仁变色","加西兰花蒜末翻炒调味"] },
+  { name:"蒜蓉粉丝蒸虾", type:"菜", effort:"费点工夫", time:"25分钟", mains:["虾","粉丝"], optional:["蒜"], taste:"蒜香", staple:"米饭", reason:"虾和粉丝蒸，像样但不复杂。", steps:["粉丝泡软铺盘底，虾开背去虾线摆上","大量蒜末用油炸香铺在虾上","上锅蒸8分钟，淋热油和生抽"] },
+  { name:"油焖大虾", type:"菜", effort:"家常", time:"20分钟", mains:["虾"], optional:["姜","葱"], taste:"咸甜", staple:"米饭", reason:"虾多的时候，油焖最过瘾。", steps:["虾去虾线","热油煎虾两面变红","加料酒生抽糖姜丝，焖3分钟收汁"] },
+  { name:"酸菜鱼", type:"菜", effort:"费点工夫", time:"35分钟", mains:["鱼片","酸菜"], optional:["辣椒","花椒"], taste:"酸辣", staple:"米饭", reason:"想吃酸辣过瘾的硬菜。", steps:["鱼片用料酒淀粉腌，酸菜切段","热油炒酸菜加辣椒花椒","加水煮开后滑入鱼片煮2分钟"] },
+  { name:"剁椒鱼头", type:"菜", effort:"费点工夫", time:"35分钟", mains:["鱼头","剁椒"], optional:["姜"], taste:"鲜辣", staple:"米饭", reason:"有鱼头就做剁椒，经典湘菜。", steps:["鱼头洗净对半劈开，铺姜片","铺满剁椒，淋料酒","上锅蒸12分钟，淋热油"] },
+
+  // ══ 豆制品 ══
+  { name:"麻婆豆腐", type:"菜", effort:"家常", time:"18分钟", mains:["豆腐","豆瓣酱"], optional:["猪肉","花椒"], taste:"麻辣", staple:"米饭", reason:"想下饭，豆腐加豆瓣酱就有方向。", steps:["豆腐切块焯水","炒肉末加豆瓣酱出红油","加少量水下豆腐，煮3分钟勾芡撒花椒粉"] },
+  { name:"家常豆腐", type:"菜", effort:"家常", time:"20分钟", mains:["豆腐"], optional:["木耳","辣椒","猪肉"], taste:"咸鲜", staple:"米饭", reason:"豆腐煎一下再烧，朴素但可靠。", steps:["豆腐切三角片煎至两面金黄","炒肉片木耳辣椒","加入豆腐生抽水焖3分钟"] },
+  { name:"小葱拌豆腐", type:"凉菜", effort:"快手", time:"6分钟", mains:["豆腐","葱"], optional:["香油"], taste:"清香", staple:"粥", reason:"不想开火太久，它很适合。", steps:["豆腐切小块焯水沥干","小葱切葱花","豆腐上撒葱花盐香油，轻轻拌匀"] },
+  { name:"皮蛋豆腐", type:"凉菜", effort:"快手", time:"8分钟", mains:["豆腐","皮蛋"], optional:["葱","香油"], taste:"鲜香", staple:"粥", reason:"经典凉菜，夏天标配。", steps:["豆腐切片铺盘，皮蛋切瓣摆上","调汁:生抽醋香油蒜末","淋汁撒葱花"] },
+  { name:"红烧豆腐", type:"菜", effort:"家常", time:"18分钟", mains:["豆腐"], optional:["葱","豆瓣酱"], taste:"酱香", staple:"米饭", reason:"豆腐最简单的红烧做法。", steps:["豆腐切块焯水","热油炒豆瓣酱出红油","下豆腐生抽老抽水炖5分钟，勾芡"] },
+  { name:"白菜豆腐汤", type:"汤", effort:"快手", time:"15分钟", mains:["白菜","豆腐"], optional:["粉丝"], taste:"清淡", staple:"米饭", reason:"清清爽爽一锅汤。", steps:["白菜切段，豆腐切块","水烧开下白菜豆腐","煮8分钟加盐香油"] },
+
+  // ══ 土豆类 ══
+  { name:"酸辣土豆丝", type:"菜", effort:"快手", time:"12分钟", mains:["土豆"], optional:["醋","辣椒","蒜"], taste:"酸辣", staple:"米饭", reason:"只有土豆也能吃得很像样。", steps:["土豆切细丝泡水去淀粉","热油爆香辣椒蒜","大火快炒土豆丝2分钟，沿锅边淋醋出锅"] },
+  { name:"青椒土豆丝", type:"菜", effort:"快手", time:"12分钟", mains:["土豆","辣椒"], optional:["蒜"], taste:"清脆", staple:"米饭", reason:"土豆和青椒是标准家常组合。", steps:["土豆辣椒切丝，土豆丝泡水","热油爆香蒜","大火翻炒至断生，盐调味"] },
+  { name:"土豆烧肉", type:"菜", effort:"费点工夫", time:"45分钟", mains:["土豆","五花肉"], optional:["姜"], taste:"酱香", staple:"米饭", reason:"土豆吸肉汁，适合想吃扎实一点。", steps:["五花肉切块焯水，土豆切块","炒糖色下肉上色","加土豆生抽老抽水，炖35分钟收汁"] },
+  { name:"地三鲜", type:"菜", effort:"费点工夫", time:"30分钟", mains:["土豆","茄子","辣椒"], optional:["蒜"], taste:"咸鲜", staple:"米饭", reason:"东北家常名菜，三样齐了很合适。", steps:["土豆茄子辣椒切块","分别过油:土豆炸金黄、茄子炸软、辣椒过油","锅中留底油爆蒜，下所有食材加生抽翻炒"] },
+  { name:"干锅土豆片", type:"菜", effort:"家常", time:"22分钟", mains:["土豆","五花肉"], optional:["辣椒","洋葱"], taste:"香辣", staple:"米饭", reason:"想吃干锅风味。", steps:["土豆切厚片煎至两面金黄","五花肉切片煸出油","加辣椒洋葱土豆片翻炒，撒孜然"] },
+  { name:"土豆泥", type:"小食", effort:"家常", time:"25分钟", mains:["土豆"], optional:["牛奶","黄油"], taste:"绵密", staple:"单吃", reason:"想吃绵软口感时，土豆泥很治愈。", steps:["土豆去皮切块煮熟","趁热压成泥","加黄油牛奶盐黑胡椒拌匀"] },
+
+  // ══ 蔬菜类 ══
+  { name:"手撕包菜", type:"菜", effort:"快手", time:"10分钟", mains:["包菜"], optional:["辣椒","蒜"], taste:"脆爽", staple:"米饭", reason:"包菜大火快炒，简单有锅气。", steps:["包菜手撕成块","热油爆香辣椒蒜","大火爆炒包菜2分钟，加生抽醋翻匀"] },
+  { name:"醋溜白菜", type:"菜", effort:"快手", time:"10分钟", mains:["白菜"], optional:["醋","辣椒"], taste:"酸香", staple:"米饭", reason:"白菜多了醋溜最省心。", steps:["白菜帮片薄片，叶撕块分开","热油爆香辣椒","先炒帮后加叶，大火快炒淋醋出锅"] },
+  { name:"蒜蓉青菜", type:"菜", effort:"快手", time:"8分钟", mains:["青菜"], optional:["蒜"], taste:"清爽", staple:"米饭", reason:"需要绿色蔬菜时最干净的选择。", steps:["青菜洗净，蒜切末","热油爆香蒜末","大火炒青菜1-2分钟，盐调味"] },
+  { name:"香菇青菜", type:"菜", effort:"家常", time:"15分钟", mains:["香菇","青菜"], optional:["蚝油"], taste:"鲜香", staple:"米饭", reason:"香菇提鲜青菜清爽。", steps:["香菇切片，青菜洗净","热油炒香菇出香","加青菜大火快炒，蚝油调味"] },
+  { name:"干煸四季豆", type:"菜", effort:"费点工夫", time:"25分钟", mains:["四季豆"], optional:["猪肉","辣椒","花椒"], taste:"香辣", staple:"米饭", reason:"四季豆充分加热，耐心做很好吃。", steps:["四季豆去筋掰段沥干水分","中小火煸炒四季豆至表皮起皱","加肉末辣椒花椒翻炒调味"] },
+  { name:"蚝油生菜", type:"菜", effort:"快手", time:"8分钟", mains:["生菜"], optional:["蚝油","蒜"], taste:"鲜爽", staple:"米饭", reason:"生菜不耐久炒，快手最合适。", steps:["生菜洗净掰开","水开后焯生菜30秒捞出","淋蚝油蒜末热油"] },
+  { name:"蒜蓉空心菜", type:"菜", effort:"快手", time:"8分钟", mains:["空心菜"], optional:["蒜"], taste:"清香", staple:"米饭", reason:"空心菜猛火快炒很清爽。", steps:["空心菜洗净摘段","大量蒜切末","大火热油爆蒜，下空心菜快炒1分钟"] },
+  { name:"地瓜叶炒蒜", type:"菜", effort:"快手", time:"8分钟", mains:["地瓜叶"], optional:["蒜"], taste:"清香", staple:"米饭", reason:"地瓜叶营养好，简单炒就香。", steps:["地瓜叶洗净摘嫩叶","蒜切末","热油爆蒜，大火炒地瓜叶至软"] },
+  { name:"西葫芦炒鸡蛋", type:"菜", effort:"快手", time:"10分钟", mains:["西葫芦","鸡蛋"], optional:["蒜"], taste:"清淡", staple:"米饭", reason:"西葫芦嫩滑配蛋很舒服。", steps:["西葫芦切片，鸡蛋打散","热油炒蛋盛出","炒西葫芦至透明，倒回蛋翻炒"] },
+  { name:"蒜蓉西兰花", type:"菜", effort:"快手", time:"10分钟", mains:["西兰花"], optional:["蒜"], taste:"清爽", staple:"米饭", reason:"西兰花焯水后炒最保持营养。", steps:["西兰花掰小朵焯水1分钟","蒜切末","热油爆蒜，下西兰花翻炒，盐调味"] },
+  { name:"虎皮青椒", type:"菜", effort:"家常", time:"15分钟", mains:["辣椒"], optional:["蒜","醋"], taste:"酸辣", staple:"米饭", reason:"青椒煎出虎皮很下饭。", steps:["辣椒拍扁去籽","热锅少油煎辣椒至两面虎皮","加蒜末生抽醋翻炒"] },
+  { name:"烧茄子", type:"菜", effort:"家常", time:"20分钟", mains:["茄子"], optional:["蒜","豆瓣酱"], taste:"酱香", staple:"米饭", reason:"茄子吸汁，配饭一绝。", steps:["茄子切滚刀块，用盐腌10分钟挤水","热油煸茄子至软","加蒜末生抽老抽糖水，焖5分钟"] },
+  { name:"鱼香茄子", type:"菜", effort:"家常", time:"25分钟", mains:["茄子","豆瓣酱"], optional:["猪肉","醋","糖"], taste:"鱼香", staple:"米饭", reason:"不用鱼，靠酸甜咸辣撑起来。", steps:["茄子切条用盐腌后挤水","炒肉末加豆瓣酱","下茄子加鱼香汁(醋糖生抽)，焖5分钟"] },
+  { name:"白菜猪肉炖粉条", type:"菜", effort:"费点工夫", time:"40分钟", mains:["白菜","猪肉","粉丝"], optional:["豆腐"], taste:"咸香", staple:"米饭", reason:"想吃热乎炖菜很有满足感。", steps:["白菜切块，肉切片，粉丝泡软","热油炒肉片变色","铺白菜粉丝豆腐，加生抽水炖20分钟"] },
+  { name:"酸菜白肉", type:"菜", effort:"费点工夫", time:"45分钟", mains:["酸菜","五花肉"], optional:["粉丝"], taste:"酸香", staple:"米饭", reason:"酸菜和白肉，汤菜两吃。", steps:["五花肉整块煮30分钟切片","酸菜切丝冲洗","用煮肉汤炖酸菜20分钟，铺上肉片"] },
+
+  // ══ 凉菜类 ══
+  { name:"拍黄瓜", type:"凉菜", effort:"快手", time:"8分钟", mains:["黄瓜"], optional:["蒜","醋","香油"], taste:"清爽", staple:"粥", reason:"没胃口时拍黄瓜很快开场。", steps:["黄瓜拍碎切段","调汁:蒜末生抽醋香油盐","淋汁拌匀"] },
+  { name:"凉拌西红柿", type:"凉菜", effort:"快手", time:"5分钟", mains:["西红柿"], optional:["糖"], taste:"酸甜", staple:"面条", reason:"不想开火最轻松的答案。", steps:["西红柿切片装盘","撒白糖","冰镇10分钟更好吃"] },
+  { name:"凉拌木耳", type:"凉菜", effort:"家常", time:"15分钟", mains:["木耳"], optional:["黄瓜","蒜","醋"], taste:"酸爽", staple:"米饭", reason:"木耳拌一拌清爽有口感。", steps:["木耳泡发焯水2分钟","黄瓜切丝","调汁:蒜末生抽醋香油辣椒油拌匀"] },
+  { name:"凉拌腐竹", type:"凉菜", effort:"家常", time:"15分钟", mains:["腐竹"], optional:["黄瓜","香菜","辣椒油"], taste:"香辣", staple:"米饭", reason:"腐竹泡好拌一下就是好菜。", steps:["腐竹泡软焯水切段","加黄瓜丝香菜","加生抽醋辣椒油蒜末拌匀"] },
+  { name:"凉拌海带丝", type:"凉菜", effort:"快手", time:"10分钟", mains:["海带"], optional:["蒜","醋","辣椒油"], taste:"酸辣", staple:"粥", reason:"海带丝是经典开胃凉菜。", steps:["海带丝焯水2分钟捞出","调汁:蒜末生抽醋辣椒油","拌匀冷藏10分钟"] },
+  { name:"蒜泥白肉", type:"凉菜", effort:"家常", time:"25分钟", mains:["五花肉"], optional:["蒜","黄瓜"], taste:"蒜香", staple:"米饭", reason:"白水煮肉配蒜泥，简单但好吃。", steps:["五花肉整块煮20分钟至熟透","切薄片摆盘，黄瓜垫底","大量蒜泥加生抽醋辣椒油，淋在肉上"] },
+
+  // ══ 主食类 ══
+  { name:"葱油拌面", type:"主食", effort:"快手", time:"12分钟", mains:["面条","葱"], optional:["酱油"], taste:"葱香", staple:"单吃", reason:"想快速吃面不用想太复杂。", steps:["面条煮熟捞出","大量葱切段小火炸至金黄出葱油","面条拌葱油生抽"] },
+  { name:"阳春面", type:"主食", effort:"快手", time:"8分钟", mains:["面条","葱"], optional:["猪油"], taste:"清香", staple:"单吃", reason:"最简单的热面。", steps:["面条煮熟","碗底放猪油生抽葱花","冲入热面汤，放入面条"] },
+  { name:"炸酱面", type:"主食", effort:"家常", time:"30分钟", mains:["面条","猪肉","黄豆酱"], optional:["黄瓜"], taste:"酱香", staple:"单吃", reason:"肉酱拌面一碗解决晚饭。", steps:["肉切丁，黄豆酱和甜面酱混合","热油炒肉丁，加酱小火炸15分钟","面条煮熟过水，码黄瓜丝浇酱"] },
+  { name:"雪菜肉丝面", type:"主食", effort:"家常", time:"18分钟", mains:["面条","雪菜","猪肉"], optional:["葱"], taste:"咸鲜", staple:"单吃", reason:"雪菜肉丝固定搭配很舒服。", steps:["肉切丝腌好，雪菜切碎","热油炒肉丝加雪菜","加水煮开下面条，盐调味"] },
+  { name:"酸辣粉", type:"主食", effort:"家常", time:"20分钟", mains:["粉丝","醋","辣椒"], optional:["花生米","香菜"], taste:"酸辣", staple:"单吃", reason:"想吃重口又不想吃饭。", steps:["粉丝泡软煮熟","调碗底:生抽醋辣椒油花椒粉蒜末","粉丝连汤倒入，撒花生香菜"] },
+  { name:"韭菜盒子", type:"主食", effort:"费点工夫", time:"45分钟", mains:["韭菜","鸡蛋","面粉"], optional:["粉丝"], taste:"鲜香", staple:"单吃", reason:"愿意动手的话韭菜盒子很有成就感。", steps:["面粉加水和成面团醒30分钟","韭菜切碎，鸡蛋炒碎，加盐调味","擀皮包馅，煎至两面金黄"] },
+  { name:"煎饺", type:"主食", effort:"家常", time:"25分钟", mains:["饺子","面粉"], optional:[], taste:"焦香", staple:"单吃", reason:"有速冻饺子直接煎。", steps:["平底锅刷油码入饺子","煎1分钟后加水至饺子1/3高度","盖盖中火焖至水干，底部焦黄"] },
+  { name:"白粥配小菜", type:"主食", effort:"快手", time:"35分钟", mains:["大米"], optional:["咸菜","鸡蛋"], taste:"清淡", staple:"单吃", reason:"只想吃点舒服的，白粥很诚实。", steps:["大米洗净泡20分钟","加水大火煮开转小火熬30分钟","配咸菜或煎蛋"] },
+  { name:"皮蛋瘦肉粥", type:"主食", effort:"家常", time:"45分钟", mains:["大米","皮蛋","猪肉"], optional:["姜","葱"], taste:"咸鲜", staple:"单吃", reason:"想吃暖一点软一点。", steps:["大米泡好煮粥","肉丝腌好，皮蛋切丁","粥快好时加肉丝皮蛋姜丝煮5分钟"] },
+  { name:"南瓜粥", type:"主食", effort:"家常", time:"40分钟", mains:["南瓜","大米"], optional:[], taste:"清甜", staple:"单吃", reason:"南瓜和米一起煮晚饭会轻一点。", steps:["南瓜去皮切小块","大米泡好和南瓜一起加水煮","小火熬30分钟至南瓜融化"] },
+  { name:"蛋饼", type:"主食", effort:"快手", time:"10分钟", mains:["鸡蛋","面粉"], optional:["葱"], taste:"咸香", staple:"单吃", reason:"早餐晚餐都适合的蛋饼。", steps:["面粉加水调成糊加鸡蛋葱花盐","平底锅刷油倒面糊摊平","两面煎至金黄"] },
+  { name:"疙瘩汤", type:"主食", effort:"快手", time:"15分钟", mains:["面粉","鸡蛋","西红柿"], optional:["青菜"], taste:"酸香", staple:"单吃", reason:"想吃暖的一锅出。", steps:["面粉用水滴搅拌成小疙瘩","西红柿炒出汁加水煮开","下疙瘩煮熟，淋蛋花加青菜"] },
+
+  // ══ 汤类 ══
+  { name:"冬瓜排骨汤", type:"汤", effort:"费点工夫", time:"70分钟", mains:["冬瓜","排骨"], optional:["姜"], taste:"清鲜", staple:"米饭", reason:"想喝汤又想吃肉。", steps:["排骨焯水","加水姜片炖40分钟","加冬瓜块再炖20分钟，盐调味"] },
+  { name:"玉米排骨汤", type:"汤", effort:"费点工夫", time:"75分钟", mains:["玉米","排骨"], optional:["胡萝卜"], taste:"清甜", staple:"米饭", reason:"玉米甜味让汤更温和。", steps:["排骨焯水，玉米切段","加水姜片炖45分钟","加胡萝卜再炖20分钟"] },
+  { name:"萝卜排骨汤", type:"汤", effort:"费点工夫", time:"70分钟", mains:["白萝卜","排骨"], optional:["姜"], taste:"清鲜", staple:"米饭", reason:"白萝卜解腻排骨汤不会太重。", steps:["排骨焯水","加水姜片炖40分钟","加白萝卜再炖25分钟"] },
+  { name:"番茄蛋花汤", type:"汤", effort:"快手", time:"10分钟", mains:["鸡蛋","西红柿"], optional:["葱"], taste:"酸甜", staple:"米饭", reason:"最简单的一碗汤。", steps:["西红柿切块炒出汁加水煮开","鸡蛋打散淋入搅成蛋花","加盐葱花出锅"] },
+  { name:"酸辣汤", type:"汤", effort:"家常", time:"20分钟", mains:["鸡蛋","豆腐","木耳"], optional:["醋","胡椒粉"], taste:"酸辣", staple:"米饭", reason:"冬天来一碗浑身暖和。", steps:["木耳切丝，豆腐切丝","水开下所有食材","淋蛋花加大量醋和胡椒粉勾芡"] },
+  { name:"冬瓜丸子汤", type:"汤", effort:"家常", time:"25分钟", mains:["冬瓜","猪肉"], optional:["姜"], taste:"清鲜", staple:"米饭", reason:"冬瓜配肉丸清淡有料。", steps:["肉剁末加葱姜水盐淀粉搅拌上劲","冬瓜切片","水开下丸子浮起后加冬瓜煮10分钟"] },
+  { name:"菌菇汤", type:"汤", effort:"家常", time:"20分钟", mains:["香菇","金针菇"], optional:["豆腐","鸡蛋"], taste:"鲜香", staple:"米饭", reason:"各种菌菇一锅煮很鲜。", steps:["各种菌菇处理好","热油炒一下菌菇出香","加水煮10分钟，可加豆腐鸡蛋"] },
+
+  // ══ 小吃 ══
+  { name:"茶叶蛋", type:"小食", effort:"费点工夫", time:"60分钟", mains:["鸡蛋","茶叶"], optional:["八角","桂皮","酱油"], taste:"五香", staple:"单吃", reason:"做一锅吃几天，入味好吃。", steps:["鸡蛋煮熟敲裂壳","加水茶叶八角桂皮生抽老抽盐","小火煮40分钟，浸泡越久越入味"] },
+  { name:"煎饼果子", type:"小食", effort:"家常", time:"20分钟", mains:["鸡蛋","面粉"], optional:["葱花","甜面酱","薄脆"], taste:"咸香", staple:"单吃", reason:"在家也能做的街头小吃。", steps:["面粉调成稀糊","平底锅摊薄饼打鸡蛋撒葱花","翻面刷酱卷起来"] },
+  { name:"酒酿圆子", type:"小食", effort:"快手", time:"15分钟", mains:["糯米粉","酒酿"], optional:["枸杞","桂花"], taste:"甜香", staple:"单吃", reason:"想吃甜的，酒酿圆子很温柔。", steps:["糯米粉加水揉成小圆子","水开下圆子煮至浮起","加酒酿枸杞煮1分钟"] },
+  { name:"馒头", type:"主食", effort:"费点工夫", time:"90分钟", mains:["面粉","酵母"], optional:[], taste:"麦香", staple:"单吃", reason:"愿意发面就自己做馒头。", steps:["酵母用温水化开加入面粉揉成面团","发酵1小时至2倍大","揉面排气分成剂子，二次发酵20分钟后蒸15分钟"] }
+];
+
+const colors = [
+  ["#bd4737","#2f6b45"],["#d59b30","#315f72"],["#7f3f2d","#d4b04b"],
+  ["#2e7566","#c94d3a"],["#9d4339","#6f934f"],["#c06030","#3f6f50"],
+  ["#a04030","#4a7060"],["#d08030","#2f5060"]
+];
+
+// ══════════════════════════════════════════
+//  状态管理
+// ══════════════════════════════════════════
+
+const state = { mode:"ingredients", candidates:[], picked:null, colorIdx:0 };
+const $ = (id) => document.getElementById(id);
+$("dishCount").textContent = dishes.length;
+
+function normalize(value) {
+  const item = value.trim().replace(/[，。；;、]/g,"");
+  return aliases.get(item) || item;
+}
+
+function parseIngredients() {
+  return [...new Set($("ingredients").value.split(/[\s,，、;；\n\r]+/).map(normalize).filter(Boolean))];
+}
+
+function allHave() {
+  return [...new Set([...parseIngredients(), ...pantry])];
+}
+
+// ══════════════════════════════════════════
+//  收藏管理 (localStorage)
+// ══════════════════════════════════════════
+
+function getFavorites() {
+  try { return JSON.parse(localStorage.getItem("eat_favorites") || "[]"); }
+  catch { return []; }
+}
+
+function saveFavorites(list) {
+  localStorage.setItem("eat_favorites", JSON.stringify(list));
+}
+
+function isFavorite(name) {
+  return getFavorites().includes(name);
+}
+
+function toggleFavorite(name) {
+  const favs = getFavorites();
+  const idx = favs.indexOf(name);
+  if (idx >= 0) { favs.splice(idx, 1); showToast("已取消收藏"); }
+  else { favs.push(name); showToast("已加入收藏 ⭐"); }
+  saveFavorites(favs);
+  updateFavBtn();
+  render();
+}
+
+// ══════════════════════════════════════════
+//  历史记录
+// ══════════════════════════════════════════
+
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem("eat_history") || "[]"); }
+  catch { return []; }
+}
+
+function addHistory(dish) {
+  const hist = getHistory().filter(h => h.name !== dish.name);
+  hist.unshift({ name: dish.name, time: Date.now() });
+  localStorage.setItem("eat_history", JSON.stringify(hist.slice(0, 20)));
+}
+
+// ══════════════════════════════════════════
+//  核心逻辑
+// ══════════════════════════════════════════
+
+function setMode(mode) {
+  state.mode = mode;
+  $("modeIngredient").classList.toggle("active", mode === "ingredients");
+  $("modeRandom").classList.toggle("active", mode === "random");
+  $("ingredientBox").hidden = mode !== "ingredients";
+  updateChips();
+}
+
+function scoreDish(dish) {
+  const userItems = parseIngredients();
+  const have = allHave();
+  const category = $("category").value;
+  const effort = $("effort").value;
+  const allowBuy = $("allowBuy").checked;
+  const preferReady = $("preferReady").checked;
+
+  if (category && dish.type !== category) return null;
+  if (effort && dish.effort !== effort) return null;
+
+  const haveMains = dish.mains.filter(item => have.includes(item));
+  const missing = dish.mains.filter(item => !have.includes(item));
+  const optionalHits = dish.optional.filter(item => have.includes(item));
+  const touchesUserInput = userItems.length === 0 || dish.mains.some(item => userItems.includes(item)) || dish.optional.some(item => userItems.includes(item));
+
+  if (state.mode === "ingredients" && userItems.length && !touchesUserInput) return null;
+  if (state.mode === "ingredients" && missing.length && !allowBuy) return null;
+  if (state.mode === "ingredients" && missing.length > 2) return null;
+
+  let score = 10;
+  score += haveMains.length * 9;
+  score += optionalHits.length * 2;
+  score -= missing.length * 5;
+  if (preferReady && missing.length === 0) score += 12;
+  if (dish.effort === "快手") score += 2;
+  score += Math.random() * 4;
+
+  return { ...dish, haveMains, missing, optionalHits, score };
+}
+
+function decide() {
+  const scored = dishes.map(scoreDish).filter(Boolean).sort((a, b) => b.score - a.score);
+  state.candidates = weightedShuffle(scored).slice(0, 12);
+  state.picked = state.candidates[0] || null;
+  state.colorIdx = (state.colorIdx + 1) % colors.length;
+  if (state.picked) addHistory(state.picked);
+  render();
+  updateChips();
+}
+
+function weightedShuffle(list) {
+  return [...list].sort((a, b) => {
+    const jitterA = Math.log(Math.random()) / Math.max(1, a.score);
+    const jitterB = Math.log(Math.random()) / Math.max(1, b.score);
+    return jitterB - jitterA;
+  });
+}
+
+function again() {
+  if (!state.candidates.length) { decide(); return; }
+  const index = state.candidates.findIndex(item => item.name === state.picked?.name);
+  state.picked = state.candidates[(index + 1) % state.candidates.length];
+  state.colorIdx = (state.colorIdx + 1) % colors.length;
+  if (state.picked) addHistory(state.picked);
+  render();
+}
+
+function pickDish(name) {
+  state.picked = state.candidates.find(item => item.name === name) || state.picked;
+  if (state.picked) addHistory(state.picked);
+  render();
+}
+
+// ══════════════════════════════════════════
+//  渲染
+// ══════════════════════════════════════════
+
+function render() {
+  const dish = state.picked;
+  if (!dish) {
+    $("result").innerHTML = `<div class="empty"><h2>暂时没匹配到</h2><p>减少筛选条件，或者允许补买 1-2 样关键食材。</p></div>`;
+    updateFavBtn();
+    return;
+  }
+
+  const ready = dish.missing.length === 0;
+  const color = colors[state.colorIdx];
+  const buyText = ready ? "不用补买" : dish.missing.join("、");
+  const haveText = dish.haveMains.length ? dish.haveMains.join("、") : "未输入相关食材";
+  const others = state.candidates.filter(item => item.name !== dish.name).slice(0, 8);
+  const headline = ready ? "今晚就吃这个" : "今晚吃这个，顺手补点料";
+  const fav = isFavorite(dish.name);
+  const stepsHtml = dish.steps ? dish.steps.map((s, i) =>
+    `<div class="step"><span class="step-num">${i + 1}</span><small>${escapeHtml(s)}</small></div>`
+  ).join("") : "";
+
+  $("result").innerHTML = `
+    <div class="decision">
+      <div class="picked">
+        <p class="kicker">${headline}</p>
+        <h2>${escapeHtml(dish.name)} <span style="cursor:pointer;font-size:24px" onclick="toggleFavorite('${escapeHtml(dish.name).replace(/'/g, "&#039;")}')">${fav ? "⭐" : "☆"}</span></h2>
+        <div class="badges">
+          <span class="badge">${dish.type}</span>
+          <span class="badge">${dish.effort}</span>
+          <span class="badge">${dish.time}</span>
+          <span class="badge need">${dish.taste}</span>
+          ${ready ? '<span class="badge">现在能做</span>' : `<span class="badge buy">需补买：${escapeHtml(buyText)}</span>`}
+        </div>
+        <p class="answer">${escapeHtml(dish.reason)} 我的决定是：别再纠结了，今晚就吃 <strong>${escapeHtml(dish.name)}</strong>。</p>
+      </div>
+      <div class="cover" style="--dish-color:${color[0]};--dish-accent:${color[1]}">
+        <div class="plate" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div class="meta">
+      <div><b>你已经有</b><span>${escapeHtml(haveText)}</span></div>
+      <div><b>还差什么</b><span>${escapeHtml(buyText)}</span></div>
+      <div><b>搭配建议</b><span>${escapeHtml(dish.staple)}</span></div>
+    </div>
+    ${dish.steps ? `
+    <div class="steps-section">
+      <h3>📝 做法步骤</h3>
+      <div class="steps">${stepsHtml}</div>
+    </div>` : ""}
+    <div class="list">
+      <div class="list-head">
+        <h3>不服可以换</h3>
+        <span>${state.candidates.length} 个候选</span>
+      </div>
+      <div class="cards">
+        ${others.map(item => {
+          const itemFav = isFavorite(item.name);
+          const star = itemFav ? "⭐" : "☆";
+          return `
+          <article class="card" tabindex="0" data-name="${escapeHtml(item.name)}">
+            <div>
+              <b>${escapeHtml(item.name)}</b>
+              <small>${item.missing.length ? "需补买：" + escapeHtml(item.missing.join("、")) : "现在能做"} · ${item.effort} · ${item.time}</small>
+            </div>
+            <small>${escapeHtml(item.reason)}</small>
+            <span class="fav-star" data-fav="${escapeHtml(item.name)}">${star}</span>
+          </article>`;
+        }).join("")}
+      </div>
+    </div>
+  `;
+
+  document.querySelectorAll(".card").forEach(card => {
+    const activate = () => pickDish(card.dataset.name);
+    card.addEventListener("click", e => {
+      if (e.target.closest(".fav-star")) {
+        toggleFavorite(e.target.closest(".fav-star").dataset.fav);
+        return;
+      }
+      activate();
+    });
+    card.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") { event.preventDefault(); activate(); }
+    });
+  });
+
+  updateFavBtn();
+}
+
+function updateChips() {
+  const items = state.mode === "ingredients" ? parseIngredients() : [];
+  const extras = [$("category").selectedOptions[0].textContent, $("effort").selectedOptions[0].textContent]
+    .filter(item => item && item !== "不限" && item !== "都行");
+  const chips = [...items, ...extras];
+  $("chips").innerHTML = chips.length
+    ? chips.map(item => `<span class="chip">${escapeHtml(item)}</span>`).join("")
+    : '<span class="chip">不输入也能直接决定</span>';
+}
+
+function updateFavBtn() {
+  const dish = state.picked;
+  $("favAdd").textContent = dish && isFavorite(dish.name) ? "★" : "♡";
+}
+
+function showToast(msg) {
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._timeout);
+  t._timeout = setTimeout(() => t.classList.remove("show"), 1600);
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&","&amp;").replaceAll("<","&lt;")
+    .replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+}
+
+// ══════════════════════════════════════════
+//  收藏弹窗
+// ══════════════════════════════════════════
+
+function renderFavModal() {
+  const favs = getFavorites();
+  const list = $("favList");
+  if (!favs.length) {
+    list.innerHTML = '<div class="fav-empty">还没收藏任何菜，点击菜名旁边的 ☆ 即可收藏</div>';
+    return;
+  }
+  list.innerHTML = favs.map(name => {
+    const dish = dishes.find(d => d.name === name);
+    if (!dish) return "";
+    return `<div class="fav-item">
+      <span><strong>${escapeHtml(dish.name)}</strong> · ${dish.type} · ${dish.effort} · ${dish.time}</span>
+      <button onclick="toggleFavorite('${escapeHtml(dish.name).replace(/'/g, "&#039;")}');renderFavModal()">删除</button>
+    </div>`;
+  }).join("");
+}
+
+function openFavModal() {
+  renderFavModal();
+  $("favModal").classList.add("open");
+}
+
+function closeFavModal() {
+  $("favModal").classList.remove("open");
+}
+
+$("favModal").addEventListener("click", e => {
+  if (e.target === $("favModal")) closeFavModal();
+});
+
+// ══════════════════════════════════════════
+//  暗色主题
+// ══════════════════════════════════════════
+
+function initTheme() {
+  const saved = localStorage.getItem("eat_theme") || "light";
+  applyTheme(saved);
+}
+
+function applyTheme(t) {
+  document.documentElement.setAttribute("data-theme", t);
+  $("themeBtn").textContent = t === "dark" ? "☀️" : "🌙";
+  localStorage.setItem("eat_theme", t);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme") || "light";
+  applyTheme(current === "dark" ? "light" : "dark");
+}
+
+// ══════════════════════════════════════════
+//  事件绑定
+// ══════════════════════════════════════════
+
+$("modeIngredient").addEventListener("click", () => setMode("ingredients"));
+$("modeRandom").addEventListener("click", () => setMode("random"));
+$("decide").addEventListener("click", decide);
+$("again").addEventListener("click", again);
+$("favAdd").addEventListener("click", () => {
+  if (state.picked) toggleFavorite(state.picked.name);
+});
+$("favBtn").addEventListener("click", openFavModal);
+$("themeBtn").addEventListener("click", toggleTheme);
+
+["ingredients","category","effort","allowBuy","preferReady"].forEach(id => {
+  $(id).addEventListener("input", updateChips);
+  $(id).addEventListener("change", () => { updateChips(); if (state.picked) decide(); });
+});
+
+// ══════════════════════════════════════════
+//  初始化
+// ══════════════════════════════════════════
+
+initTheme();
+$("ingredients").value = "鸡蛋";
+updateChips();
+decide();
+</script>
+</body>
+</html>
