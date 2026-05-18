@@ -3,14 +3,14 @@
 import os
 from datetime import datetime, timedelta
 
-from textscripts.config import BASE_DIR
+from textscripts.config import BASE_DIR, POSTS_DIR
 from textscripts.utils.file_ops import load_json, today_str
 
 
 def generate_sitemap():
     """从 posts.json 生成 sitemap.xml，使用真实日期和合理 changefreq/priority"""
     posts = load_json(
-        os.path.join(BASE_DIR, "posts", "posts.json")
+        os.path.join(POSTS_DIR, "posts.json")
     )
     base = "https://20020426.top"
     now = today_str()
