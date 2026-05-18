@@ -5,7 +5,7 @@ import os
 import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-POSTS_DIR = os.path.join(BASE_DIR, "posts")
+POSTS_DIR = os.path.join(BASE_DIR, "public", "posts")
 JSON_PATH = os.path.join(POSTS_DIR, "posts.json")
 SCRIPTS_DIR = os.path.join(BASE_DIR, "scripts")
 CONFIG_PATH = os.path.join(SCRIPTS_DIR, "config.json")
