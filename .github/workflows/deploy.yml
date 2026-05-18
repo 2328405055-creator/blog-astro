@@ -122,18 +122,16 @@ jobs:
           if git diff --cached --quiet; then
             echo "没有新内容"
           else
-            # 先拉取再提交 (避免 rebase 冲突)
-            git pull --rebase origin master
             DATE_STR=$(date +%Y-%m-%d -d '+8 hours')
             git commit -m "每日更新 $DATE_STR — 自动内容生成"
-            # 推送 (最多重试 3 次)
+            # 推送 (重试: pull --rebase 再 push)
             for i in 1 2 3; do
-              if git push; then echo "推送成功"; exit 0; fi
-              echo "推送失败, 重试 ($i/3)..."
+              if git push 2>/dev/null; then echo "推送成功"; exit 0; fi
+              echo "冲突, pull & 重试 ($i/3)..."
               git pull --rebase origin master
               sleep 5
             done
-            echo "推送最终失败"
+            echo "推送失败"
             exit 1
           fi
 
