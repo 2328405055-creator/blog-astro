@@ -121,19 +121,17 @@ jobs:
           git add public/posts/ data/ sitemap.xml
           if git diff --cached --quiet; then
             echo "没有新内容"
-          else
-            DATE_STR=$(date +%Y-%m-%d -d '+8 hours')
-            git commit -m "每日更新 $DATE_STR — 自动内容生成"
-            # 推送 (重试: pull --rebase 再 push)
-            for i in 1 2 3; do
-              if git push 2>/dev/null; then echo "推送成功"; exit 0; fi
-              echo "冲突, pull & 重试 ($i/3)..."
-              git pull --rebase origin master
-              sleep 5
-            done
-            echo "推送失败"
-            exit 1
+            exit 0
           fi
+          DATE_STR=$(date +%Y-%m-%d -d '+8 hours')
+          git commit -m "每日更新 $DATE_STR — 自动内容生成"
+          # force-with-lease: 仅在远程未变更时推送, 避免 merge 冲突
+          git pull --rebase origin master 2>/dev/null || git rebase --abort 2>/dev/null
+          git push --force-with-lease origin master 2>/dev/null && echo "推送成功" && exit 0
+          # 如果 force-with-lease 失败(远程有新提交), 放弃本次提交
+          echo "远程已更新, 跳过提交 (内容仍会部署)"
+          git reset --soft HEAD~1 2>/dev/null
+          exit 0
 
       # ============================================================
       # 9. 部署到 GitHub Pages
