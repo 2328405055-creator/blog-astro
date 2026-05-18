@@ -118,15 +118,19 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/posts/ sitemap.xml
+          git add public/posts/ data/ sitemap.xml
           if git diff --cached --quiet; then
             echo "没有新内容"
           else
-            git pull --rebase origin master
             DATE_STR=$(date +%Y-%m-%d -d '+8 hours')
             git commit -m "每日更新 $DATE_STR — 自动内容生成"
-            git push
-            echo "已推送新文章"
+            for i in 1 2 3; do
+              git pull --rebase origin master && git push && echo "推送成功" && exit 0
+              echo "推送失败，重试 ($i/3)..."
+              sleep 5
+            done
+            echo "推送最终失败"
+            exit 1
           fi
 
       # ============================================================
