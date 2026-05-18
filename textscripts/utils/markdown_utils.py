@@ -162,15 +162,12 @@ def build_fitness_post(entry: dict) -> tuple[str, str]:
     yt_link = f"https://www.youtube.com/results?search_query={yt_query}"
     date_str = today_str()
 
-    images = entry.get("_images", [])
     sources_info = entry.get("_sources", [])
     body = ""
     if enriched and enriched.get("content"):
         body = enriched["content"]
         if sources_info:
             body += "\n\n## 参考来源\n\n" + "\n".join(f"- {s}" for s in sources_info)
-        if images:
-            body += "\n\n## 配图\n\n" + "\n".join(f"![]({img})" for img in images[:3])
     else:
         body = (
             "## 训练建议\n\n"
@@ -216,8 +213,6 @@ def build_ai_post(entry: dict) -> tuple[str, str]:
         body = enriched["content"]
         if sources_info:
             body += "\n\n## 参考来源\n\n" + "\n".join(f"- {s}" for s in sources_info)
-        if images:
-            body += "\n\n## 配图\n\n" + "\n".join(f"![]({img})" for img in images[:3])
     else:
         body = (
             "## AI 与跨境电商的交汇\n\n"
