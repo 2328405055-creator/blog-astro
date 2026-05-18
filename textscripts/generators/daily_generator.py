@@ -238,6 +238,50 @@ def build_ai_post(entry):
 """, cat
 
 
+def clean_title(title: str) -> str:
+    """清理标题：去来源后缀、限制长度、去多余空格"""
+    # 去掉来源后缀 (如 " - BBC News", " | 36kr", " - 亿邦动力网")
+    title = re.sub(r'\s*[-|—–]\s*(BBC|CNN|36kr|雨果|亿邦|野莓|Ozon|WB).*$', '', title, flags=re.I)
+    title = re.sub(r'\s*[-|—–]\s*\S*(?:com|cn|ru|news|blog)\S*$', '', title, flags=re.I)
+    # 去掉末尾多余的分隔
+    title = re.sub(r'\s*[-|—–]\s*$', '', title)
+    # 限制长度
+    if len(title) > 60:
+        title = title[:57] + '...'
+    return title.strip()
+
+
+def quality_pass(entry, md_content: str, section: str) -> tuple[bool, str]:
+    """快速质量检查 (发布前)"""
+    title = entry.get("title", "")
+    link = entry.get("link", "")
+    enriched = entry.get("enriched")
+    word_count = len(md_content)
+
+    # 标题不可空或过短
+    if len(title) < 10:
+        return False, f"标题过短 ({len(title)}字)"
+
+    # 标题不可过长
+    if len(title) > 80:
+        return False, f"标题过长 ({len(title)}字)"
+
+    # 必须有来源链接
+    if not link:
+        return False, "无来源链接"
+
+    # 字数至少 300
+    if word_count < 300:
+        return False, f"字数不足 ({word_count})"
+
+    # 过滤纯广告/垃圾标题
+    spam_kw = ["免费领取", "限时优惠", "点击下载", "加微信", "扫码", "关注公众号"]
+    if any(kw in title for kw in spam_kw):
+        return False, f"垃圾标题: {title[:40]}"
+
+    return True, ""
+
+
 # ============================================================
 # 文章生成流水线
 # ============================================================
@@ -245,9 +289,10 @@ def build_ai_post(entry):
 def build_and_save(entry, section, date_str, existing_slugs):
     title = entry["title"]
     title = translate_title(title)
+    title = clean_title(title)
     if title != entry["title"]:
-        logger.info(f"翻译: {entry['title'][:30]}... -> {title[:30]}...")
-        entry["title"] = title
+        logger.info(f"翻译+清理: {entry['title'][:30]}... -> {title[:30]}...")
+    entry["title"] = title
 
     if section == "cross-border":
         md_content, cat = build_cross_border_post(entry)
@@ -255,6 +300,11 @@ def build_and_save(entry, section, date_str, existing_slugs):
         md_content, cat = build_fitness_post(entry)
     else:
         md_content, cat = build_ai_post(entry)
+
+    ok, reason = quality_pass(entry, md_content, section)
+    if not ok:
+        logger.warning(f"质量过滤: {title[:40]}... — {reason}")
+        return None
 
     slug_base = slugify(title) + "-" + date_str
     slug = slug_base
@@ -326,16 +376,19 @@ def generate_posts(limit_cb=4, limit_fit=3, limit_ai=3):
     if all_fresh:
         enrich_batch(all_fresh)
 
-    # 生成文章
+    # 生成文章 (质量过滤后 None 跳过)
     for entry in cb_fresh:
         if entry.get("enriched") is not False:
-            new_posts.append(build_and_save(entry, "cross-border", date_str, existing_slugs))
+            res = build_and_save(entry, "cross-border", date_str, existing_slugs)
+            if res: new_posts.append(res)
     for entry in fit_fresh:
         if entry.get("enriched") is not False:
-            new_posts.append(build_and_save(entry, "fitness", date_str, existing_slugs))
+            res = build_and_save(entry, "fitness", date_str, existing_slugs)
+            if res: new_posts.append(res)
     for entry in ai_fresh:
         if entry.get("enriched") is not False:
-            new_posts.append(build_and_save(entry, "ai-news", date_str, existing_slugs))
+            res = build_and_save(entry, "ai-news", date_str, existing_slugs)
+            if res: new_posts.append(res)
 
     # 补充抓取
     cb_total = sum(1 for p in new_posts if p["cat"] == "cross-border")
@@ -351,14 +404,14 @@ def generate_posts(limit_cb=4, limit_fit=3, limit_ai=3):
         for entry in fill_all:
             sec = entry["section"]
             if sec == "cross-border" and cb_total < limit_cb:
-                new_posts.append(build_and_save(entry, "cross-border", date_str, existing_slugs))
-                cb_total += 1
+                res = build_and_save(entry, "cross-border", date_str, existing_slugs)
+                if res: new_posts.append(res); cb_total += 1
             elif sec == "fitness" and fit_total < limit_fit:
-                new_posts.append(build_and_save(entry, "fitness", date_str, existing_slugs))
-                fit_total += 1
+                res = build_and_save(entry, "fitness", date_str, existing_slugs)
+                if res: new_posts.append(res); fit_total += 1
             elif sec == "ai-news" and ai_total < limit_ai:
-                new_posts.append(build_and_save(entry, "ai-news", date_str, existing_slugs))
-                ai_total += 1
+                res = build_and_save(entry, "ai-news", date_str, existing_slugs)
+                if res: new_posts.append(res); ai_total += 1
 
     current_total = len(load_json(JSON_PATH))
     cb_count = sum(1 for p in new_posts if p["cat"] == "cross-border")
