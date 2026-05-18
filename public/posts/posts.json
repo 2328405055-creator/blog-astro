@@ -1,57 +1,5 @@
 [
   {
-    "slug": "ozon-daily-pick-2026-05-18",
-    "title": "🏆 Ozon每日选品推荐 — 2026-05-18",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "## 数据概览\n- 数据来源: **Wildberries 平台真实销量排序** (v18 API)\n- 搜索关键词: 32个精确商品品类, 覆盖电子配件/运动/美妆/家居/母婴/服装\n- 采集商品: 7 款 (均分 4.9/5.0, 均价 683 ₽)\n- 热门细分类目: 智能手环(2款), 充电",
-    "cat": "ozon-pick",
-    "sub": "daily-select",
-    "featured": true,
-    "verified": false,
-    "source": "Wildberries v18 API",
-    "source_name": "猫明之主"
-  },
-  {
-    "slug": "俄罗斯电商平台ozon向中国卖家降门槛-北京商报-2026-05-18",
-    "title": "俄罗斯电商平台Ozon向中国卖家降门槛 - 北京商报",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "俄罗斯电商平台Ozon向中国卖家降门槛 - 北京商报",
-    "cat": "cross-border",
-    "sub": "russia-market",
-    "source": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1UOEcwQWlKcEFRTzNORUhyU1d1Vmc1ajZGUUZfV1l3VE5uSWI4ZUVxdWdBd1MtZ3NhSHVJQlcyeGt6MGJ4YVd1YjNsNkxUWUhWbTlhT3BMM2h0amx6clE?oc=5",
-    "source_name": "北京商报 (bbtnews.com.cn)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "中央网信办部署开展清朗整治ai应用乱象专项行动-封面新闻-2026-05-18",
-    "title": "中央网信办部署开展“清朗·整治AI应用乱象”专项行动 - 封面新闻",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "中央网信办部署开展“清朗·整治AI应用乱象”专项行动 - 封面新闻",
-    "cat": "ai-news",
-    "sub": "ai-tools",
-    "source": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1ncENvb0xIYm9wOUl0ZnF5OVRjZHlCS0UzYmVidWRnZUpRN3NqVVVDSzJQOVV2UWtoWk5sZjVhUTg3aThCb1M2SXRNNGw1X2Z6N1ZjRU8tbnBpOXdhSEdhc2ZhVl9qQ1YwWm0tYmRySWFMYVVCVXNr?oc=5",
-    "source_name": "封面新闻 (m.thecover.cn)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "普通用户为何要关注ai伦理-2026-05-18-2",
-    "title": "普通用户为何要关注AI伦理",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "普通用户为何要关注AI伦理",
-    "cat": "ai-news",
-    "sub": "ai-industry",
-    "source": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPTnZfdGxwbWtUbG40MlZ4MVNtS1c1T194TjBzQWFoeUJlQlhYVG41eEhyLVpDVjNrZC03Q3BVQlp3VjlyYkdHN0NWRE1ZNzJsZ3gzaGtSVWZ2LWQzb3ZqYWNRZ29fX3BoUGtIR3ZaTkxMRU1sOVQ2QWdqa1NGWm44dGZ0MkJBTWUxb2w5Snp0VW05TE16endGQ3U2SkZhNzF3aVkwVA?oc=5",
-    "source_name": "towardsdatascience.com (towardsdatascience.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
     "slug": "23款高效ai生产力工具助你养成好习惯-2026-05-18-3",
     "title": "23款高效AI生产力工具，助你养成好习惯",
     "date": "2026-05-18",
@@ -63,19 +11,6 @@
     "source_name": "Develop Good Habits (developgoodhabits.com)",
     "has_content": true,
     "word_count": 1242
-  },
-  {
-    "slug": "厌倦健身房健身教练分享8个高效居家燃脂训练-2026-05-18-3",
-    "title": "厌倦健身房？健身教练分享8个高效居家燃脂训练",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "厌倦健身房？健身教练分享8个高效居家燃脂训练",
-    "cat": "fitness",
-    "sub": "yoga-mat",
-    "source": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPbVo1TUVYZHJFVFNibE1sR1I1eVRBSjlHeGRkb2FWU3pwdGNKengxam9YRmlqLVVWb2doSHA4LUsxUmxqMXB0Q3JQY2QxdWplVExRTGxKUlpnTnJDVGlhVmRqcnZvTjh5QXlQbWplMVhtN1hpTHFmRS02OG82VXpSMkg2VUNNbElaQm9rV0NXY2o2NHRxV0FURmwtMlZ3cHhibno5eVF6czZFV0hwNG8yTlhzT0hKczd4MGR6Z3RmWGMzakdBdTBlQmp1QmItWnd0U1ZlNDM2NG9HNFHSAeABQVVfeXFMT19FcDJNeTlDcnAyVXl2N1NDMkl6R3d5Qy1lNDYwZkZweldFS05LcEw4R3lKM3p5MDFqb2wtcFhNRkdKZVFPQnA3b3VmYkFNUGVicTA0aFdIZFh3SmllMUQzQkY3NnBGSGtORHFrS000SDZFU3NyVWhTWGw1bVZ6TVNtR2NCcDY4RjhOSC1zbWxRUnpiOUs3UFRhc0tGQ3RiNW1FS0o4ZFEwWUV4LVk5TnRWS1QwYWx5eVpsOHhpWVRRVldnLS11YXFkNnVnZnFKV2EzaGZWNWNCN1hYRDBmdzM?oc=5",
-    "source_name": "Moneycontrol.com (moneycontrol.com)",
-    "has_content": false,
-    "word_count": 0
   },
   {
     "slug": "初学者必备的15个弹力带训练动作-2026-05-18-3",
@@ -104,32 +39,6 @@
     "word_count": 1128
   },
   {
-    "slug": "野莓wbwildberries2025官宣大会-俄罗斯最具影响力的电商平台正式来中国啦-2026-05-18",
-    "title": "野莓WB（Wildberries）2025官宣大会 - 俄罗斯最具影响力的电商平台正式来中国啦",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "野莓WB（Wildberries）2025官宣大会 - 俄罗斯最具影响力的电商平台正式来中国啦",
-    "cat": "cross-border",
-    "sub": "russia-market",
-    "source": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBrRGV5ZERhenRJZXNkNnQ3RjNuYVlrWHpvNld4azFJYWdGampkMjhzRlUxY1VrSVZabkd3TjYzald0ZmYwT0hzWllCdGJIRzY2cVU0?oc=5",
-    "source_name": "51cto.com (51cto.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "ai替代潮之下-跨境电商卖铲人还好吗-2026-05-18",
-    "title": "AI替代潮之下 跨境电商“卖铲人”还好吗？",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "AI替代潮之下 跨境电商“卖铲人”还好吗？",
-    "cat": "cross-border",
-    "sub": "selection",
-    "source": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9POVNqQWdkbGhuOXhxUVlhbzY2bXF4a2FSYlJtcGxsSXZiemZzTUdqMTMyalk3ajcxWmVOMno0MWZPaC1hM0VRS01KQ1BTbE1YS3pTcFJn?oc=5",
-    "source_name": "亿邦动力网 (ebrun.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
     "slug": "ai替代潮之下跨境电商卖铲人还好吗-2026-05-18",
     "title": "AI替代潮之下，跨境电商“卖铲人”还好吗？",
     "date": "2026-05-18",
@@ -143,32 +52,6 @@
     "word_count": 1344
   },
   {
-    "slug": "普通用户为何要关注ai伦理-2026-05-18-1",
-    "title": "普通用户为何要关注AI伦理",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "普通用户为何要关注AI伦理",
-    "cat": "ai-news",
-    "sub": "ai-industry",
-    "source": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPTnZfdGxwbWtUbG40MlZ4MVNtS1c1T194TjBzQWFoeUJlQlhYVG41eEhyLVpDVjNrZC03Q3BVQlp3VjlyYkdHN0NWRE1ZNzJsZ3gzaGtSVWZ2LWQzb3ZqYWNRZ29fX3BoUGtIR3ZaTkxMRU1sOVQ2QWdqa1NGWm44dGZ0MkJBTWUxb2w5Snp0VW05TE16endGQ3U2SkZhNzF3aVkwVA?oc=5",
-    "source_name": "towardsdatascience.com (towardsdatascience.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "hr-专属-ai变革性方法-microsoft-copilot-2026-05-18-1",
-    "title": "HR 专属 AI：变革性方法 | Microsoft Copilot",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "HR 专属 AI：变革性方法 | Microsoft Copilot",
-    "cat": "ai-news",
-    "sub": "ai-industry",
-    "source": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5IeWVfQXlPUUhIM1ZBamZkVUd4bV9qRFIyTGIyRjM4RUhyYXRaLVBtenFlWUl4Z0JodjRYNDVuN2NIXy1BckZkLXAxcktIWGtkVmFGbE5qSkVGeXg0WWkyOHhJUTVOUmY0elFZX3FMYWJ1emkwNGkyX01mcw?oc=5",
-    "source_name": "Microsoft (microsoft.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
     "slug": "23款高效ai生产力工具助你养成好习惯-2026-05-18-2",
     "title": "23款高效AI生产力工具，助你养成好习惯",
     "date": "2026-05-18",
@@ -180,19 +63,6 @@
     "source_name": "Develop Good Habits (developgoodhabits.com)",
     "has_content": true,
     "word_count": 1562
-  },
-  {
-    "slug": "厌倦健身房健身教练分享8个高效居家燃脂训练-2026-05-18-2",
-    "title": "厌倦健身房？健身教练分享8个高效居家燃脂训练",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "厌倦健身房？健身教练分享8个高效居家燃脂训练",
-    "cat": "fitness",
-    "sub": "yoga-mat",
-    "source": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPbVo1TUVYZHJFVFNibE1sR1I1eVRBSjlHeGRkb2FWU3pwdGNKengxam9YRmlqLVVWb2doSHA4LUsxUmxqMXB0Q3JQY2QxdWplVExRTGxKUlpnTnJDVGlhVmRqcnZvTjh5QXlQbWplMVhtN1hpTHFmRS02OG82VXpSMkg2VUNNbElaQm9rV0NXY2o2NHRxV0FURmwtMlZ3cHhibno5eVF6czZFV0hwNG8yTlhzT0hKczd4MGR6Z3RmWGMzakdBdTBlQmp1QmItWnd0U1ZlNDM2NG9HNFHSAeABQVVfeXFMT19FcDJNeTlDcnAyVXl2N1NDMkl6R3d5Qy1lNDYwZkZweldFS05LcEw4R3lKM3p5MDFqb2wtcFhNRkdKZVFPQnA3b3VmYkFNUGVicTA0aFdIZFh3SmllMUQzQkY3NnBGSGtORHFrS000SDZFU3NyVWhTWGw1bVZ6TVNtR2NCcDY4RjhOSC1zbWxRUnpiOUs3UFRhc0tGQ3RiNW1FS0o4ZFEwWUV4LVk5TnRWS1QwYWx5eVpsOHhpWVRRVldnLS11YXFkNnVnZnFKV2EzaGZWNWNCN1hYRDBmdzM?oc=5",
-    "source_name": "Moneycontrol.com (moneycontrol.com)",
-    "has_content": false,
-    "word_count": 0
   },
   {
     "slug": "初学者必备的15个弹力带训练动作-2026-05-18-2",
@@ -247,58 +117,6 @@
     "word_count": 1713
   },
   {
-    "slug": "俄罗斯本土电商平台野莓wildberries宣布全面开放中国招商商家可享每周回款-跨境电商-亿邦动力网-2026-05-18",
-    "title": "俄罗斯本土电商平台野莓Wildberries宣布全面开放中国招商商家可享每周回款- 跨境电商 - 亿邦动力网",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "俄罗斯本土电商平台野莓Wildberries宣布全面开放中国招商商家可享每周回款- 跨境电商 - 亿邦动力网",
-    "cat": "cross-border",
-    "sub": "logistics",
-    "source": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBJaUdsTzNBY2pMM2x1Q2dhbUg0S2pVNE5nNm82OXZfeFRlbGtRanVxRjNUeXhXV2tGdGRmN0VSZDltcm5scDVXODZ3NXEtODlZbGVyZDVn?oc=5",
-    "source_name": "亿邦动力网 (ebrun.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "入驻-1-年暴涨-300这两个中国品牌在俄罗斯杀疯了-雨果跨境-2026-05-18",
-    "title": "入驻 1 年暴涨 300%！这两个中国品牌在俄罗斯杀疯了 - 雨果跨境",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "入驻 1 年暴涨 300%！这两个中国品牌在俄罗斯杀疯了 - 雨果跨境",
-    "cat": "cross-border",
-    "sub": "russia-market",
-    "source": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE1fVHZQSlRfNkZyRmsxNElnV2xvTFdfTlIzcDlPTmdXSko4QlZ3eHloWEp2YUpSOUs5cEdkNlVaVFpFTXo1M1BKTklWRmY?oc=5",
-    "source_name": "雨果跨境 (m.cifnews.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "普通用户为何要关注ai伦理-2026-05-18",
-    "title": "普通用户为何要关注AI伦理",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "普通用户为何要关注AI伦理",
-    "cat": "ai-news",
-    "sub": "ai-industry",
-    "source": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPTnZfdGxwbWtUbG40MlZ4MVNtS1c1T194TjBzQWFoeUJlQlhYVG41eEhyLVpDVjNrZC03Q3BVQlp3VjlyYkdHN0NWRE1ZNzJsZ3gzaGtSVWZ2LWQzb3ZqYWNRZ29fX3BoUGtIR3ZaTkxMRU1sOVQ2QWdqa1NGWm44dGZ0MkJBTWUxb2w5Snp0VW05TE16endGQ3U2SkZhNzF3aVkwVA?oc=5",
-    "source_name": "towardsdatascience.com (towardsdatascience.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "别再盲目报ai-班-看caie-认证体系化-实战性-认可度就够了人工智能ai文本生成学习者课程工程_手机新浪网-新浪财经-2026-05-18",
-    "title": "别再盲目报AI 班！ 看CAIE 认证（体系化+ 实战性+ 认可度）就够了|人工智能|AI文本生成|学习者|课程|工程_手机新浪网 - 新浪财经",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "别再盲目报AI 班！ 看CAIE 认证（体系化+ 实战性+ 认可度）就够了|人工智能|AI文本生成|学习者|课程|工程_手机新浪网 - 新浪财经",
-    "cat": "ai-news",
-    "sub": "ai-industry",
-    "source": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5yTVBxZGEzUGpoXzdKd2JEQWpPNzlLQ0JuVDNzZXBBbVh4T2ZiLVQycWZPMC11NGNpcVIzTXFheTVmVEVlaVpHb1BCQTVpOHdKSzFYREFOV0NGbUh2SndCbFY0bWJUWGd1X280X3BWOUVvblZWcFN6UHVRRV9GeGM?oc=5",
-    "source_name": "新浪财经 (finance.sina.cn)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
     "slug": "23款高效ai生产力工具助你养成好习惯-2026-05-18-1",
     "title": "23款高效AI生产力工具，助你养成好习惯",
     "date": "2026-05-18",
@@ -310,19 +128,6 @@
     "source_name": "Develop Good Habits (developgoodhabits.com)",
     "has_content": true,
     "word_count": 1888
-  },
-  {
-    "slug": "厌倦健身房健身教练分享8个高效居家燃脂训练-2026-05-18-1",
-    "title": "厌倦健身房？健身教练分享8个高效居家燃脂训练",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "厌倦健身房？健身教练分享8个高效居家燃脂训练",
-    "cat": "fitness",
-    "sub": "yoga-mat",
-    "source": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPbVo1TUVYZHJFVFNibE1sR1I1eVRBSjlHeGRkb2FWU3pwdGNKengxam9YRmlqLVVWb2doSHA4LUsxUmxqMXB0Q3JQY2QxdWplVExRTGxKUlpnTnJDVGlhVmRqcnZvTjh5QXlQbWplMVhtN1hpTHFmRS02OG82VXpSMkg2VUNNbElaQm9rV0NXY2o2NHRxV0FURmwtMlZ3cHhibno5eVF6czZFV0hwNG8yTlhzT0hKczd4MGR6Z3RmWGMzakdBdTBlQmp1QmItWnd0U1ZlNDM2NG9HNFHSAeABQVVfeXFMT19FcDJNeTlDcnAyVXl2N1NDMkl6R3d5Qy1lNDYwZkZweldFS05LcEw4R3lKM3p5MDFqb2wtcFhNRkdKZVFPQnA3b3VmYkFNUGVicTA0aFdIZFh3SmllMUQzQkY3NnBGSGtORHFrS000SDZFU3NyVWhTWGw1bVZ6TVNtR2NCcDY4RjhOSC1zbWxRUnpiOUs3UFRhc0tGQ3RiNW1FS0o4ZFEwWUV4LVk5TnRWS1QwYWx5eVpsOHhpWVRRVldnLS11YXFkNnVnZnFKV2EzaGZWNWNCN1hYRDBmdzM?oc=5",
-    "source_name": "Moneycontrol.com (moneycontrol.com)",
-    "has_content": false,
-    "word_count": 0
   },
   {
     "slug": "初学者必备的15个弹力带训练动作-2026-05-18-1",
@@ -351,19 +156,6 @@
     "word_count": 1193
   },
   {
-    "slug": "抢占俄罗斯千亿市场ozon平台专场培训会圆满落幕实战干货助力卖家安全出海-中华网-2026-05-18",
-    "title": "抢占俄罗斯千亿市场！Ozon平台专场培训会圆满落幕，实战干货助力卖家安全出海 - 中华网",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "抢占俄罗斯千亿市场！Ozon平台专场培训会圆满落幕，实战干货助力卖家安全出海 - 中华网",
-    "cat": "cross-border",
-    "sub": "russia-market",
-    "source": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9SVWJIR0NCdmJyWG50ZC0xRnRxbkxmRzAyc1FueHdjNHBTWU1BYlFQZGl4M2RET3BFSjEzQmJnc0JPTjFkV3VaUm8wLXVNbW83N2U1anQwWGFOaUNfQWZ3MWxSbE5YTDRfaUdUYW1n?oc=5",
-    "source_name": "中华网 (m.tech.china.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
     "slug": "跨境电商的ai暗战谁能靠垂直应用改写千亿市场格局-亿邦动力网-2026-05-18",
     "title": "跨境电商的“AI暗战”：谁能靠垂直应用改写千亿市场格局？ - 亿邦动力网",
     "date": "2026-05-18",
@@ -377,58 +169,6 @@
     "word_count": 1626
   },
   {
-    "slug": "etsy超核数据分析-2023版-雨果跨境-2026-05-18",
-    "title": "Etsy超核数据分析 2023版 - 雨果跨境",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "Etsy超核数据分析 2023版 - 雨果跨境",
-    "cat": "cross-border",
-    "sub": "tools",
-    "source": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE81Y3FmcXVaMHM5ejZvUWhSRk9XXzlTYzV3eDFOMXJaOXN2MVpWV1ZDUDkwRVVTc2tiR201NjZ6d1ljVkt4SEE1UkRDblc?oc=5",
-    "source_name": "雨果跨境 (m.cifnews.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "amy聊跨境收藏中东本土电商平台noon入驻保姆级教程-雨果跨境-2026-05-18",
-    "title": "Amy聊跨境：收藏！中东本土电商平台noon入驻保姆级教程 - 雨果跨境",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "Amy聊跨境：收藏！中东本土电商平台noon入驻保姆级教程 - 雨果跨境",
-    "cat": "cross-border",
-    "sub": "selection",
-    "source": "https://news.google.com/rss/articles/CBMiTEFVX3lxTFA2T2N1MUw2REpNamdMQ19nSFVCZ2FrblNrbXNsYVR0blB4QXJYNEFVdVJUSDV2alZ6WmdKRmhVYzdfNnlldVBjZFJKanU?oc=5",
-    "source_name": "雨果跨境 (m.cifnews.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "算法大佬们都在关注的算法前沿这几个高质量-ai-社区值得收藏-智源社区-2026-05-18",
-    "title": "算法大佬们都在关注的算法前沿，这几个高质量 AI 社区值得收藏！ - 智源社区",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "算法大佬们都在关注的算法前沿，这几个高质量 AI 社区值得收藏！ - 智源社区",
-    "cat": "ai-news",
-    "sub": "ai-industry",
-    "source": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE03eVBWS3BDZnpKLW9IWHhkNnlGS1BUZDhjdVdPRW9sVndFX0ZvTHNHRUl0Z19PVlZ6U0EwNENZSlAzRWp1Q0hVMA?oc=5",
-    "source_name": "智源社区 (hub.baai.ac.cn)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "hr-专属-ai变革性方法-microsoft-copilot-2026-05-18",
-    "title": "HR 专属 AI：变革性方法 | Microsoft Copilot",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "HR 专属 AI：变革性方法 | Microsoft Copilot",
-    "cat": "ai-news",
-    "sub": "ai-industry",
-    "source": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5IeWVfQXlPUUhIM1ZBamZkVUd4bV9qRFIyTGIyRjM4RUhyYXRaLVBtenFlWUl4Z0JodjRYNDVuN2NIXy1BckZkLXAxcktIWGtkVmFGbE5qSkVGeXg0WWkyOHhJUTVOUmY0elFZX3FMYWJ1emkwNGkyX01mcw?oc=5",
-    "source_name": "Microsoft (microsoft.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
     "slug": "23款高效ai生产力工具助你养成好习惯-2026-05-18",
     "title": "23款高效AI生产力工具助你养成好习惯",
     "date": "2026-05-18",
@@ -440,19 +180,6 @@
     "source_name": "Develop Good Habits (developgoodhabits.com)",
     "has_content": true,
     "word_count": 1414
-  },
-  {
-    "slug": "厌倦健身房健身教练分享8个高效居家燃脂训练-2026-05-18",
-    "title": "厌倦健身房？健身教练分享8个高效居家燃脂训练",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "厌倦健身房？健身教练分享8个高效居家燃脂训练",
-    "cat": "fitness",
-    "sub": "yoga-mat",
-    "source": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPbVo1TUVYZHJFVFNibE1sR1I1eVRBSjlHeGRkb2FWU3pwdGNKengxam9YRmlqLVVWb2doSHA4LUsxUmxqMXB0Q3JQY2QxdWplVExRTGxKUlpnTnJDVGlhVmRqcnZvTjh5QXlQbWplMVhtN1hpTHFmRS02OG82VXpSMkg2VUNNbElaQm9rV0NXY2o2NHRxV0FURmwtMlZ3cHhibno5eVF6czZFV0hwNG8yTlhzT0hKczd4MGR6Z3RmWGMzakdBdTBlQmp1QmItWnd0U1ZlNDM2NG9HNFHSAeABQVVfeXFMT19FcDJNeTlDcnAyVXl2N1NDMkl6R3d5Qy1lNDYwZkZweldFS05LcEw4R3lKM3p5MDFqb2wtcFhNRkdKZVFPQnA3b3VmYkFNUGVicTA0aFdIZFh3SmllMUQzQkY3NnBGSGtORHFrS000SDZFU3NyVWhTWGw1bVZ6TVNtR2NCcDY4RjhOSC1zbWxRUnpiOUs3UFRhc0tGQ3RiNW1FS0o4ZFEwWUV4LVk5TnRWS1QwYWx5eVpsOHhpWVRRVldnLS11YXFkNnVnZnFKV2EzaGZWNWNCN1hYRDBmdzM?oc=5",
-    "source_name": "Moneycontrol.com (moneycontrol.com)",
-    "has_content": false,
-    "word_count": 0
   },
   {
     "slug": "初学者必备的15个弹力带训练动作-2026-05-18",
@@ -479,58 +206,6 @@
     "source_name": "Fit&Well (fitandwell.com)",
     "has_content": true,
     "word_count": 1316
-  },
-  {
-    "slug": "俄乌冲突加密货币的舞台-安全内参-2026-05-18",
-    "title": "俄乌冲突：加密货币的舞台 - 安全内参",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "俄乌冲突：加密货币的舞台 - 安全内参",
-    "cat": "cross-border",
-    "sub": "selection",
-    "source": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1ybTczV09vVXZpbkw4UWZweXl5OE9aTWtUMllWUVkxWlhwWlBQOEFBNHh6b01jaXZldXpiOS1abFE3T0pfSXBLc1FtNDI0QQ?oc=5",
-    "source_name": "安全内参 (secrss.com)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "ai工具一路狂飙盘点跨境电商必备工具-enjoy出海-2026-05-18",
-    "title": "AI工具一路狂飙,盘点跨境电商必备工具 - Enjoy出海",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "AI工具一路狂飙,盘点跨境电商必备工具 - Enjoy出海",
-    "cat": "cross-border",
-    "sub": "tools",
-    "source": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9UdmV4ZHg1MlpFV0kxQWxOaDNMQ05icTdKWHJ3eFl1NjZwQi05aHVXaWVPWElTWV9qdWlTNWxST3lWZ0xzTHZaS0d4aXA3M2U5UF9JSEd6VmZ6dw?oc=5",
-    "source_name": "Enjoy出海 (enjoyglobal.net)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "2022年汇款顶住全球逆风增长5-shihangorg-2026-05-18",
-    "title": "2022年汇款顶住全球逆风，增长5% - shihang.org",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "2022年汇款顶住全球逆风，增长5% - shihang.org",
-    "cat": "cross-border",
-    "sub": "selection",
-    "source": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQYl8yX01BZ3cyVXZXT0RlUHd5c3oyQm56WmxWMkMyNFZYaGoxTzJWOWlqeUEwckV5ajNVWG1hR2UwVTVBd1ZDWHVsbUlxanFJV0pYbVV4NHhXeld1RGVfbUFwbklCQm5DZkxfWGlJd2lVOUQ2c0tzYjJ6SnZHdTBua0R2RjNac2Q3RkVpVkJad2JfZw?oc=5",
-    "source_name": "shihang.org (shihang.org)",
-    "has_content": false,
-    "word_count": 0
-  },
-  {
-    "slug": "竞争加剧2020年数字化选品将成出口电商卖家必备基础技能-雨果跨境-2026-05-18",
-    "title": "竞争加剧！2020年数字化选品将成出口电商卖家必备基础技能 - 雨果跨境",
-    "date": "2026-05-18",
-    "lastmod": "2026-05-18",
-    "excerpt": "竞争加剧！2020年数字化选品将成出口电商卖家必备基础技能 - 雨果跨境",
-    "cat": "cross-border",
-    "sub": "selection",
-    "source": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE9sSDNlelFZeXFtTGdjX2Y1NXB3RDFKSEdFV3JGRjdjbldXTjljdHNITTJHdVZfVk1xOWFXbjE2ZGR4M0RuRWlLc2pFVQ?oc=5",
-    "source_name": "雨果跨境 (m.cifnews.com)",
-    "has_content": false,
-    "word_count": 0
   },
   {
     "slug": "ozon-summer-product-selection-wildberries-2026-q2",
@@ -583,27 +258,5 @@
     "source_name": "猫明之主",
     "has_content": true,
     "word_count": 4641
-  },
-  {
-    "slug": "ozon-daily-pick-2026-05-12",
-    "title": "🏆 Ozon每日选品推荐 — 2026-05-12",
-    "date": "2026-05-12",
-    "excerpt": "## 数据概览\n- 数据来源: **Wildberries 平台真实销量排序** (v18 API)\n- 搜索关键词: 32个精确商品品类, 覆盖电子配件/运动/美妆/家居/母婴/服装\n- 采集商品: 8 款 (均分 4.8/5.0, 均价 516 ₽ / ≈47 CNY)\n- 热门细分类目: 男款",
-    "cat": "ozon-pick",
-    "sub": "daily-select",
-    "verified": false,
-    "source": "Wildberries v18 API",
-    "source_name": "猫明之主"
-  },
-  {
-    "slug": "ozon-daily-pick-2026-05-11",
-    "title": "🏆 Ozon每日选品推荐 — 2026-05-11",
-    "date": "2026-05-11",
-    "excerpt": "WB真实销量数据: iPhone硅胶壳(¥8.9/4.8星/3625评)、无线耳机(¥41.1/4.6星)、智能插座(¥63.0/4.9星/17391评)...共3款精选商品",
-    "cat": "ozon-pick",
-    "sub": "daily-select",
-    "verified": false,
-    "source": "Wildberries v5 API",
-    "source_name": "猫明之主"
   }
 ]

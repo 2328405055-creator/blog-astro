@@ -279,6 +279,10 @@ def quality_pass(entry, md_content: str, section: str) -> tuple[bool, str]:
     if any(kw in title for kw in spam_kw):
         return False, f"垃圾标题: {title[:40]}"
 
+    # 必须有富化内容，不能是空壳
+    if not enriched or not enriched.get("content"):
+        return False, "无富化内容 (RSS 抓取失败)"
+
     return True, ""
 
 
