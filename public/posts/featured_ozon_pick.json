@@ -1,38 +1,12 @@
 {
-  "slug": "ozon-daily-pick-2026-05-21",
-  "date": "2026-05-21",
-  "generated_at": "2026-05-21T02:51:00+08:00",
+  "slug": "ozon-daily-pick-2026-05-22",
+  "date": "2026-05-22",
+  "generated_at": "2026-05-22T02:54:08+08:00",
   "verified": false,
   "verification_report": null,
   "products": [
     {
       "rank": 1,
-      "nm_id": "949883961",
-      "product_name_ru": "Повербанк мощный для всех устройств быстрая зарядка",
-      "product_name_cn": "强大的移动电源，适合所有设备快速充电",
-      "brand": "",
-      "cat_cn": "充电宝",
-      "cat_key": "accessories",
-      "price_rub": 367,
-      "price_cny": 35.1,
-      "rating": 4.9,
-      "review_count": 406,
-      "trend_score": 95,
-      "sort_mode": "popular",
-      "search_keyword": "power bank внешний аккумулятор",
-      "wb_url": "https://www.wildberries.ru/catalog/949883961/detail.aspx",
-      "source_urls": [
-        "https://www.wildberries.ru/catalog/949883961/detail.aspx"
-      ],
-      "recommendation_reason_cn": "数据来源: Wildberries真实销量排序(популярности), 反映当前热销趋势；低价位(¥35.1), 适合新手试水, 资金压力小；有一定市场验证(406条评价, 4.9分), 竞争适中；趋势评分95/100(高), 多维度信号积极, 强烈推荐关注",
-      "risk_warnings_cn": [
-        "数据采集时间: 2026-05-21 02:54 CST, 价格/库存以 Wildberries 实时数据为准",
-        "认证要求: 需 EAC 声明",
-        "SKU: 949883961, 可在 WB 搜索验证: wildberries.ru/catalog/949883961/detail.aspx"
-      ]
-    },
-    {
-      "rank": 2,
       "nm_id": "670995477",
       "product_name_ru": "Smart Band 10",
       "product_name_cn": "智能手环10",
@@ -40,77 +14,216 @@
       "cat_cn": "智能手环",
       "cat_key": "wearables",
       "price_rub": 2998,
-      "price_cny": 286.9,
+      "price_cny": 286.0,
       "rating": 4.9,
-      "review_count": 255,
-      "trend_score": 90,
-      "sort_mode": "newly",
+      "review_count": 256,
+      "trend_score": 95,
+      "sort_mode": "popular",
       "search_keyword": "фитнес-браслет",
       "wb_url": "https://www.wildberries.ru/catalog/670995477/detail.aspx",
       "source_urls": [
         "https://www.wildberries.ru/catalog/670995477/detail.aspx"
       ],
-      "recommendation_reason_cn": "数据来源: Wildberries新品排序(новинки), 捕捉早期选品机会；中高价位(¥286.9), 单品利润可观, 适合精品运营；有一定市场验证(255条评价, 4.9分), 竞争适中；趋势评分90/100(高), 多维度信号积极, 强烈推荐关注",
+      "recommendation_reason_cn": "数据来源: Wildberries真实销量排序(популярности), 反映当前热销趋势；中高价位(¥286.0), 单品利润可观, 适合精品运营；有一定市场验证(256条评价, 4.9分), 竞争适中；趋势评分95/100(高), 多维度信号积极, 强烈推荐关注",
       "risk_warnings_cn": [
-        "数据采集时间: 2026-05-21 02:54 CST, 价格/库存以 Wildberries 实时数据为准",
+        "数据采集时间: 2026-05-22 02:55 CST, 价格/库存以 Wildberries 实时数据为准",
         "认证要求: 需 EAC 认证",
         "SKU: 670995477, 可在 WB 搜索验证: wildberries.ru/catalog/670995477/detail.aspx"
       ]
     },
     {
-      "rank": 1,
-      "nm_id": "",
-      "product_name_ru": "家居用品趋势",
-      "product_name_cn": "📊 家居用品选品机会",
-      "brand": "",
-      "cat_cn": "家居用品",
+      "rank": 2,
+      "nm_id": "292535194",
+      "product_name_ru": "Светильник потолочный настенный 10Вт, 4000K, 230В",
+      "product_name_cn": "台灯 потолочный настенный 10вт, 4000k, 230в",
+      "brand": "Космос",
+      "cat_cn": "LED台灯/夜灯",
       "cat_key": "home",
-      "price_rub": 1000,
-      "price_cny": 95.7,
-      "rating": 0,
-      "review_count": 1,
-      "trend_score": 35,
-      "sort_mode": "news",
-      "search_keyword": "",
-      "wb_url": "",
+      "price_rub": 137,
+      "price_cny": 13.1,
+      "rating": 4.9,
+      "review_count": 2019,
+      "trend_score": 90,
+      "sort_mode": "popular",
+      "search_keyword": "светильник светодиодный",
+      "wb_url": "https://www.wildberries.ru/catalog/292535194/detail.aspx",
       "source_urls": [
-        "https://news.google.com/rss/articles/CBMirAFBVV95cUxORnJCazg0dWJCMTRxMFI1bzhlX0s5WFVyOEdzUG1URTFPX0NZSFE0dVkwQVV4Q19zNXJKcGVwN3BfXzBUdG9lN2ttX0ZUTnVnMEYzYW50WmtzQmJDNEhaN2R0bmZGTGRucms2LVFnbDdSYzRLRkE3amZkTlZINHZHbzNBMXFJeUJLNlBHemZXYjljMktHU2FwaVJlRldVTENUX25nbnFIcGVMQmM1?oc=5"
+        "https://www.wildberries.ru/catalog/292535194/detail.aspx"
       ],
-      "recommendation_reason_cn": "基于 1 条新闻的趋势分析；建议到 WB/Ozon 搜索确认具体商品",
+      "recommendation_reason_cn": "数据来源: Wildberries真实销量排序(популярности), 反映当前热销趋势；低价位(¥13.1), 适合新手试水, 资金压力小；市场高度认可(2019条真实评价, 4.9分), 需求强劲但竞争也大；趋势评分90/100(高), 多维度信号积极, 强烈推荐关注",
       "risk_warnings_cn": [
-        "此为新闻趋势分析, 非实时商品数据",
-        "建议到 WB/Ozon 平台确认具体 SKU"
-      ],
-      "is_news_insight": true
+        "数据采集时间: 2026-05-22 02:55 CST, 价格/库存以 Wildberries 实时数据为准",
+        "中等竞争(2019条评价), 建议研究TOP10竞品的定价/卖点策略",
+        "认证要求: 食品接触类需 EAC 声明, 电子类需认证",
+        "超低价商品利润率薄, 需走量且有供应链优势才能盈利",
+        "SKU: 292535194, 可在 WB 搜索验证: wildberries.ru/catalog/292535194/detail.aspx"
+      ]
     },
     {
-      "rank": 2,
-      "nm_id": "",
-      "product_name_ru": "服装鞋包趋势",
-      "product_name_cn": "📊 服装鞋包选品机会",
-      "brand": "",
-      "cat_cn": "服装鞋包",
-      "cat_key": "clothing",
-      "price_rub": 2000,
-      "price_cny": 191.4,
-      "rating": 0,
-      "review_count": 1,
-      "trend_score": 35,
-      "sort_mode": "news",
-      "search_keyword": "",
-      "wb_url": "",
+      "rank": 3,
+      "nm_id": "339561233",
+      "product_name_ru": "Повербанк 30000 mah мощный с быстрой зарядкой и проводами",
+      "product_name_cn": "移动电源 30000mAh，功能强大，可快速充电和电线",
+      "brand": "DMS",
+      "cat_cn": "充电宝",
+      "cat_key": "accessories",
+      "price_rub": 1030,
+      "price_cny": 98.3,
+      "rating": 4.8,
+      "review_count": 4298,
+      "trend_score": 90,
+      "sort_mode": "popular",
+      "search_keyword": "power bank внешний аккумулятор",
+      "wb_url": "https://www.wildberries.ru/catalog/339561233/detail.aspx",
       "source_urls": [
-        "https://news.google.com/rss/articles/CBMitAFBVV95cUxQNGZUMzcyeW5OSWVienNsZWdXZjRTQXNWdENjZXo1TFlWdDUyY1ZUQ0xEbEEtUWVpMjhOS2RUTXFlWEJyMGVEWEtRaVRsM2NpLW1tNVRUMFJ6a3hrX0ZLRnN5UXI4TFQ3THlObzZoZWhDUzhpRm5PZGFSTnZWRGsyVEExeWxaYXhnUmdtMVozWjA4SUUzWGdiN3RUVUo3VlV3dXdPY2paemRwYlAzcDVHbWU1cnU?oc=5"
+        "https://www.wildberries.ru/catalog/339561233/detail.aspx"
       ],
-      "recommendation_reason_cn": "基于 1 条新闻的趋势分析；建议到 WB/Ozon 搜索确认具体商品",
+      "recommendation_reason_cn": "数据来源: Wildberries真实销量排序(популярности), 反映当前热销趋势；中等价位(¥98.3), 预估利润率30-50%, 性价比突出；市场高度认可(4298条真实评价, 4.8分), 需求强劲但竞争也大；趋势评分90/100(高), 多维度信号积极, 强烈推荐关注",
       "risk_warnings_cn": [
-        "此为新闻趋势分析, 非实时商品数据",
-        "建议到 WB/Ozon 平台确认具体 SKU"
+        "数据采集时间: 2026-05-22 02:55 CST, 价格/库存以 Wildberries 实时数据为准",
+        "中等竞争(4298条评价), 建议研究TOP10竞品的定价/卖点策略",
+        "认证要求: 需 EAC 声明",
+        "SKU: 339561233, 可在 WB 搜索验证: wildberries.ru/catalog/339561233/detail.aspx"
+      ]
+    },
+    {
+      "rank": 4,
+      "nm_id": "240176960",
+      "product_name_ru": "Нескользящий коврик для йоги и фитнеса",
+      "product_name_cn": "нескользящий 瑜伽垫 и фитнеса",
+      "brand": "AbcAge",
+      "cat_cn": "瑜伽垫",
+      "cat_key": "sports",
+      "price_rub": 684,
+      "price_cny": 65.3,
+      "rating": 4.9,
+      "review_count": 6071,
+      "trend_score": 85,
+      "sort_mode": "popular",
+      "search_keyword": "коврик для йоги",
+      "wb_url": "https://www.wildberries.ru/catalog/240176960/detail.aspx",
+      "source_urls": [
+        "https://www.wildberries.ru/catalog/240176960/detail.aspx"
       ],
-      "is_news_insight": true
+      "recommendation_reason_cn": "数据来源: Wildberries真实销量排序(популярности), 反映当前热销趋势；中等价位(¥65.3), 预估利润率30-50%, 性价比突出；市场高度认可(6071条真实评价, 4.9分), 需求强劲但竞争也大；趋势评分85/100(高), 多维度信号积极, 强烈推荐关注",
+      "risk_warnings_cn": [
+        "数据采集时间: 2026-05-22 02:55 CST, 价格/库存以 Wildberries 实时数据为准",
+        "头部商品(6071条评价), 已形成竞争壁垒, 建议分析差异化切入点后再入场",
+        "认证要求: 一般需 EAC 声明, 防护类需严格认证",
+        "SKU: 240176960, 可在 WB 搜索验证: wildberries.ru/catalog/240176960/detail.aspx"
+      ]
+    },
+    {
+      "rank": 5,
+      "nm_id": "949883961",
+      "product_name_ru": "Повербанк мощный для всех устройств быстрая зарядка",
+      "product_name_cn": "强大的移动电源，适合所有设备快速充电",
+      "brand": "",
+      "cat_cn": "充电宝",
+      "cat_key": "accessories",
+      "price_rub": 363,
+      "price_cny": 34.6,
+      "rating": 4.9,
+      "review_count": 445,
+      "trend_score": 80,
+      "sort_mode": "newly",
+      "search_keyword": "power bank внешний аккумулятор",
+      "wb_url": "https://www.wildberries.ru/catalog/949883961/detail.aspx",
+      "source_urls": [
+        "https://www.wildberries.ru/catalog/949883961/detail.aspx"
+      ],
+      "recommendation_reason_cn": "数据来源: Wildberries新品排序(новинки), 捕捉早期选品机会；低价位(¥34.6), 适合新手试水, 资金压力小；有一定市场验证(445条评价, 4.9分), 竞争适中；趋势评分80/100(高), 多维度信号积极, 强烈推荐关注",
+      "risk_warnings_cn": [
+        "数据采集时间: 2026-05-22 02:55 CST, 价格/库存以 Wildberries 实时数据为准",
+        "认证要求: 需 EAC 声明",
+        "SKU: 949883961, 可在 WB 搜索验证: wildberries.ru/catalog/949883961/detail.aspx"
+      ]
+    },
+    {
+      "rank": 6,
+      "nm_id": "292535187",
+      "product_name_ru": "Светильник потолочный настенный 10Вт, 6400K, 230В",
+      "product_name_cn": "台灯 потолочный настенный 10вт, 6400k, 230в",
+      "brand": "Космос",
+      "cat_cn": "LED台灯/夜灯",
+      "cat_key": "home",
+      "price_rub": 137,
+      "price_cny": 13.1,
+      "rating": 4.9,
+      "review_count": 1370,
+      "trend_score": 80,
+      "sort_mode": "newly",
+      "search_keyword": "светильник светодиодный",
+      "wb_url": "https://www.wildberries.ru/catalog/292535187/detail.aspx",
+      "source_urls": [
+        "https://www.wildberries.ru/catalog/292535187/detail.aspx"
+      ],
+      "recommendation_reason_cn": "数据来源: Wildberries新品排序(новинки), 捕捉早期选品机会；低价位(¥13.1), 适合新手试水, 资金压力小；市场高度认可(1370条真实评价, 4.9分), 需求强劲但竞争也大；趋势评分80/100(高), 多维度信号积极, 强烈推荐关注",
+      "risk_warnings_cn": [
+        "数据采集时间: 2026-05-22 02:55 CST, 价格/库存以 Wildberries 实时数据为准",
+        "中等竞争(1370条评价), 建议研究TOP10竞品的定价/卖点策略",
+        "认证要求: 食品接触类需 EAC 声明, 电子类需认证",
+        "超低价商品利润率薄, 需走量且有供应链优势才能盈利",
+        "SKU: 292535187, 可在 WB 搜索验证: wildberries.ru/catalog/292535187/detail.aspx"
+      ]
+    },
+    {
+      "rank": 7,
+      "nm_id": "240176958",
+      "product_name_ru": "Коврик для йоги и фитнеса",
+      "product_name_cn": "瑜伽垫 и фитнеса",
+      "brand": "AbcAge",
+      "cat_cn": "瑜伽垫",
+      "cat_key": "sports",
+      "price_rub": 718,
+      "price_cny": 68.5,
+      "rating": 4.9,
+      "review_count": 5923,
+      "trend_score": 75,
+      "sort_mode": "newly",
+      "search_keyword": "коврик для йоги",
+      "wb_url": "https://www.wildberries.ru/catalog/240176958/detail.aspx",
+      "source_urls": [
+        "https://www.wildberries.ru/catalog/240176958/detail.aspx"
+      ],
+      "recommendation_reason_cn": "数据来源: Wildberries新品排序(новинки), 捕捉早期选品机会；中等价位(¥68.5), 预估利润率30-50%, 性价比突出；市场高度认可(5923条真实评价, 4.9分), 需求强劲但竞争也大；趋势评分75/100(高), 多维度信号积极, 强烈推荐关注",
+      "risk_warnings_cn": [
+        "数据采集时间: 2026-05-22 02:55 CST, 价格/库存以 Wildberries 实时数据为准",
+        "头部商品(5923条评价), 已形成竞争壁垒, 建议分析差异化切入点后再入场",
+        "认证要求: 一般需 EAC 声明, 防护类需严格认证",
+        "SKU: 240176958, 可在 WB 搜索验证: wildberries.ru/catalog/240176958/detail.aspx"
+      ]
+    },
+    {
+      "rank": 8,
+      "nm_id": "14455064",
+      "product_name_ru": "Ремешок для фитнес-браслета Xiaomi Mi band 3 Mi band 4",
+      "product_name_cn": "ремешок для 智能手环а 小米 mi band 3 mi band 4",
+      "brand": "Agaltyn",
+      "cat_cn": "智能手环",
+      "cat_key": "wearables",
+      "price_rub": 91,
+      "price_cny": 8.7,
+      "rating": 4.9,
+      "review_count": 119047,
+      "trend_score": 65,
+      "sort_mode": "newly",
+      "search_keyword": "фитнес-браслет",
+      "wb_url": "https://www.wildberries.ru/catalog/14455064/detail.aspx",
+      "source_urls": [
+        "https://www.wildberries.ru/catalog/14455064/detail.aspx"
+      ],
+      "recommendation_reason_cn": "数据来源: Wildberries新品排序(новинки), 捕捉早期选品机会；低价位(¥8.7), 适合新手试水, 资金压力小；市场高度认可(119047条真实评价, 4.9分), 需求强劲但竞争也大；趋势评分65/100(中高), 综合信号良好",
+      "risk_warnings_cn": [
+        "数据采集时间: 2026-05-22 02:55 CST, 价格/库存以 Wildberries 实时数据为准",
+        "头部商品(119047条评价), 已形成竞争壁垒, 建议分析差异化切入点后再入场",
+        "认证要求: 需 EAC 认证",
+        "超低价商品利润率薄, 需走量且有供应链优势才能盈利",
+        "SKU: 14455064, 可在 WB 搜索验证: wildberries.ru/catalog/14455064/detail.aspx"
+      ]
     }
   ],
-  "market_summary_cn": "## 数据概览\n- 数据来源: **Wildberries 平台真实销量排序** (v18 API)\n- 搜索关键词: 32个精确商品品类, 覆盖电子配件/运动/美妆/家居/母婴/服装\n- 采集商品: 2 款 (均分 4.9/5.0, 均价 1682 ₽)\n- 热门细分类目: 充电宝(1款), 智能手环(1款)\n- 采集时间: 2026-05-21 02:54 CST\n\n## 相关市场动态\n- Больше нельзя \"просто посмотреть\": всех, кто покупает на Wildberries и Ozon, ждет новое правило - Pr\n- Wildberries и Ozon меняют правила: разделение отзывов по вариантам и карантин цен для селлеров - Фин\n- Wildberries и Ozon изменили условия оплаты и доставки для покупателей - Пруфы\n- Wildberries и Ozon закрутили гайки: за «просто посмотреть» теперь придется платить – ужесточение пра\n- Ваш рейтинг покупателя под угрозой: Wildberries и Ozon вводят жесткие правила оплаты и доставки - Си\n\n## 参考信息\n- 参考汇率: 1 CNY ≈ 10.45 RUB (open.er-api.com)\n- 数据时效: 采集于 2026-05-21 02:54 CST\n- > 以上数据均来自 Wildberries 平台公开接口",
+  "market_summary_cn": "## 数据概览\n- 数据来源: **Wildberries 平台真实销量排序** (v18 API)\n- 搜索关键词: 32个精确商品品类, 覆盖电子配件/运动/美妆/家居/母婴/服装\n- 采集商品: 8 款 (均分 4.9/5.0, 均价 770 ₽)\n- 热门细分类目: 智能手环(2款), LED台灯/夜灯(2款), 充电宝(2款), 瑜伽垫(2款)\n- 采集时间: 2026-05-22 02:55 CST\n\n## 相关市场动态\n- Wildberries и Ozon меняют правила: разделение отзывов по вариантам и карантин цен для селлеров - Фин\n- Wildberries и Ozon закрутили гайки: за «просто посмотреть» теперь придется платить – ужесточение пра\n- Ozon против Wildberries. Как онлайн-площадки сформировали рынок маркетплейсов в России - Финам.Ру\n- Wildberries и Ozon изменили условия оплаты и доставки для покупателей - Пруфы\n- Ozon или Wildberries: большой гайд по выбору площадки для продавцов - skillbox.ru\n\n## 参考信息\n- 参考汇率: 1 CNY ≈ 10.48 RUB (open.er-api.com)\n- 数据时效: 采集于 2026-05-22 02:55 CST\n- > 以上数据均来自 Wildberries 平台公开接口",
   "data_sources": [
     {
       "name": "Wildberries v18 API (真实销量排序)",
