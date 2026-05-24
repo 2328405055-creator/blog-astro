@@ -1,7 +1,7 @@
 {
-  "slug": "ozon-daily-pick-2026-05-23",
-  "date": "2026-05-23",
-  "generated_at": "2026-05-23T02:36:14+08:00",
+  "slug": "ozon-daily-pick-2026-05-24",
+  "date": "2026-05-24",
+  "generated_at": "2026-05-24T02:47:42+08:00",
   "verified": false,
   "verification_report": null,
   "products": [
@@ -16,47 +16,46 @@
       "price_rub": 780,
       "price_cny": 74.6,
       "rating": 4.9,
-      "review_count": 1180,
-      "trend_score": 90,
-      "sort_mode": "newly",
+      "review_count": 1201,
+      "trend_score": 95,
+      "sort_mode": "popular",
       "search_keyword": "коврик для йоги",
       "wb_url": "https://www.wildberries.ru/catalog/790966024/detail.aspx",
       "source_urls": [
         "https://www.wildberries.ru/catalog/790966024/detail.aspx"
       ],
-      "recommendation_reason_cn": "数据来源: Wildberries新品排序(новинки), 捕捉早期选品机会；中等价位(¥74.6), 预估利润率30-50%, 性价比突出；市场高度认可(1180条真实评价, 4.9分), 需求强劲但竞争也大；趋势评分90/100(高), 多维度信号积极, 强烈推荐关注",
+      "recommendation_reason_cn": "数据来源: Wildberries真实销量排序(популярности), 反映当前热销趋势；中等价位(¥74.6), 预估利润率30-50%, 性价比突出；市场高度认可(1201条真实评价, 4.9分), 需求强劲但竞争也大；趋势评分95/100(高), 多维度信号积极, 强烈推荐关注",
       "risk_warnings_cn": [
-        "数据采集时间: 2026-05-23 02:39 CST, 价格/库存以 Wildberries 实时数据为准",
-        "中等竞争(1180条评价), 建议研究TOP10竞品的定价/卖点策略",
+        "数据采集时间: 2026-05-24 02:50 CST, 价格/库存以 Wildberries 实时数据为准",
+        "中等竞争(1201条评价), 建议研究TOP10竞品的定价/卖点策略",
         "认证要求: 一般需 EAC 声明, 防护类需严格认证",
         "SKU: 790966024, 可在 WB 搜索验证: wildberries.ru/catalog/790966024/detail.aspx"
       ]
     },
     {
       "rank": 2,
-      "nm_id": "240176960",
-      "product_name_ru": "Нескользящий коврик для йоги и фитнеса",
-      "product_name_cn": "нескользящий 瑜伽垫 и фитнеса",
-      "brand": "AbcAge",
-      "cat_cn": "瑜伽垫",
-      "cat_key": "sports",
-      "price_rub": 654,
-      "price_cny": 62.6,
+      "nm_id": "670995477",
+      "product_name_ru": "Smart Band 10",
+      "product_name_cn": "智能手环10",
+      "brand": "Xiaomi",
+      "cat_cn": "智能手环",
+      "cat_key": "wearables",
+      "price_rub": 2998,
+      "price_cny": 286.9,
       "rating": 4.9,
-      "review_count": 6094,
-      "trend_score": 80,
-      "sort_mode": "popular",
-      "search_keyword": "коврик для йоги",
-      "wb_url": "https://www.wildberries.ru/catalog/240176960/detail.aspx",
+      "review_count": 269,
+      "trend_score": 90,
+      "sort_mode": "newly",
+      "search_keyword": "фитнес-браслет",
+      "wb_url": "https://www.wildberries.ru/catalog/670995477/detail.aspx",
       "source_urls": [
-        "https://www.wildberries.ru/catalog/240176960/detail.aspx"
+        "https://www.wildberries.ru/catalog/670995477/detail.aspx"
       ],
-      "recommendation_reason_cn": "数据来源: Wildberries真实销量排序(популярности), 反映当前热销趋势；中等价位(¥62.6), 预估利润率30-50%, 性价比突出；市场高度认可(6094条真实评价, 4.9分), 需求强劲但竞争也大；趋势评分80/100(高), 多维度信号积极, 强烈推荐关注",
+      "recommendation_reason_cn": "数据来源: Wildberries新品排序(новинки), 捕捉早期选品机会；中高价位(¥286.9), 单品利润可观, 适合精品运营；有一定市场验证(269条评价, 4.9分), 竞争适中；趋势评分90/100(高), 多维度信号积极, 强烈推荐关注",
       "risk_warnings_cn": [
-        "数据采集时间: 2026-05-23 02:39 CST, 价格/库存以 Wildberries 实时数据为准",
-        "头部商品(6094条评价), 已形成竞争壁垒, 建议分析差异化切入点后再入场",
-        "认证要求: 一般需 EAC 声明, 防护类需严格认证",
-        "SKU: 240176960, 可在 WB 搜索验证: wildberries.ru/catalog/240176960/detail.aspx"
+        "数据采集时间: 2026-05-24 02:50 CST, 价格/库存以 Wildberries 实时数据为准",
+        "认证要求: 需 EAC 认证",
+        "SKU: 670995477, 可在 WB 搜索验证: wildberries.ru/catalog/670995477/detail.aspx"
       ]
     },
     {
@@ -70,25 +69,52 @@
       "price_rub": 131,
       "price_cny": 12.5,
       "rating": 4.9,
-      "review_count": 2032,
-      "trend_score": 75,
-      "sort_mode": "newly",
+      "review_count": 2041,
+      "trend_score": 85,
+      "sort_mode": "popular",
       "search_keyword": "светильник светодиодный",
       "wb_url": "https://www.wildberries.ru/catalog/292535194/detail.aspx",
       "source_urls": [
         "https://www.wildberries.ru/catalog/292535194/detail.aspx"
       ],
-      "recommendation_reason_cn": "数据来源: Wildberries新品排序(новинки), 捕捉早期选品机会；低价位(¥12.5), 适合新手试水, 资金压力小；市场高度认可(2032条真实评价, 4.9分), 需求强劲但竞争也大；趋势评分75/100(高), 多维度信号积极, 强烈推荐关注",
+      "recommendation_reason_cn": "数据来源: Wildberries真实销量排序(популярности), 反映当前热销趋势；低价位(¥12.5), 适合新手试水, 资金压力小；市场高度认可(2041条真实评价, 4.9分), 需求强劲但竞争也大；趋势评分85/100(高), 多维度信号积极, 强烈推荐关注",
       "risk_warnings_cn": [
-        "数据采集时间: 2026-05-23 02:39 CST, 价格/库存以 Wildberries 实时数据为准",
-        "中等竞争(2032条评价), 建议研究TOP10竞品的定价/卖点策略",
+        "数据采集时间: 2026-05-24 02:50 CST, 价格/库存以 Wildberries 实时数据为准",
+        "中等竞争(2041条评价), 建议研究TOP10竞品的定价/卖点策略",
         "认证要求: 食品接触类需 EAC 声明, 电子类需认证",
         "超低价商品利润率薄, 需走量且有供应链优势才能盈利",
         "SKU: 292535194, 可在 WB 搜索验证: wildberries.ru/catalog/292535194/detail.aspx"
       ]
+    },
+    {
+      "rank": 4,
+      "nm_id": "240176960",
+      "product_name_ru": "Нескользящий коврик для йоги и фитнеса",
+      "product_name_cn": "нескользящий 瑜伽垫 и фитнеса",
+      "brand": "AbcAge",
+      "cat_cn": "瑜伽垫",
+      "cat_key": "sports",
+      "price_rub": 654,
+      "price_cny": 62.6,
+      "rating": 4.9,
+      "review_count": 6116,
+      "trend_score": 70,
+      "sort_mode": "newly",
+      "search_keyword": "коврик для йоги",
+      "wb_url": "https://www.wildberries.ru/catalog/240176960/detail.aspx",
+      "source_urls": [
+        "https://www.wildberries.ru/catalog/240176960/detail.aspx"
+      ],
+      "recommendation_reason_cn": "数据来源: Wildberries新品排序(новинки), 捕捉早期选品机会；中等价位(¥62.6), 预估利润率30-50%, 性价比突出；市场高度认可(6116条真实评价, 4.9分), 需求强劲但竞争也大；趋势评分70/100(中高), 综合信号良好",
+      "risk_warnings_cn": [
+        "数据采集时间: 2026-05-24 02:50 CST, 价格/库存以 Wildberries 实时数据为准",
+        "头部商品(6116条评价), 已形成竞争壁垒, 建议分析差异化切入点后再入场",
+        "认证要求: 一般需 EAC 声明, 防护类需严格认证",
+        "SKU: 240176960, 可在 WB 搜索验证: wildberries.ru/catalog/240176960/detail.aspx"
+      ]
     }
   ],
-  "market_summary_cn": "## 数据概览\n- 数据来源: **Wildberries 平台真实销量排序** (v18 API)\n- 搜索关键词: 32个精确商品品类, 覆盖电子配件/运动/美妆/家居/母婴/服装\n- 采集商品: 3 款 (均分 4.9/5.0, 均价 522 ₽)\n- 热门细分类目: 瑜伽垫(2款), LED台灯/夜灯(1款)\n- 采集时间: 2026-05-23 02:39 CST\n\n## 相关市场动态\n- Wildberries и Ozon меняют правила: разделение отзывов по вариантам и карантин цен для селлеров - Фин\n- Wildberries и Ozon закрутили гайки: за «просто посмотреть» теперь придется платить – ужесточение пра\n- Ozon против Wildberries. Как онлайн-площадки сформировали рынок маркетплейсов в России - Финам.Ру\n- Wildberries и Ozon изменили условия оплаты и доставки для покупателей - Пруфы\n- Ваш рейтинг покупателя под угрозой: Wildberries и Ozon вводят жесткие правила оплаты и доставки - Си\n\n## 参考信息\n- 参考汇率: 1 CNY ≈ 10.45 RUB (open.er-api.com)\n- 数据时效: 采集于 2026-05-23 02:39 CST\n- > 以上数据均来自 Wildberries 平台公开接口",
+  "market_summary_cn": "## 数据概览\n- 数据来源: **Wildberries 平台真实销量排序** (v18 API)\n- 搜索关键词: 32个精确商品品类, 覆盖电子配件/运动/美妆/家居/母婴/服装\n- 采集商品: 4 款 (均分 4.9/5.0, 均价 1141 ₽)\n- 热门细分类目: 瑜伽垫(2款), 智能手环(1款), LED台灯/夜灯(1款)\n- 采集时间: 2026-05-24 02:50 CST\n\n## 相关市场动态\n- Wildberries и Ozon меняют правила: разделение отзывов по вариантам и карантин цен для селлеров - Фин\n- Wildberries и Ozon закрутили гайки: за «просто посмотреть» теперь придется платить – ужесточение пра\n- Ozon против Wildberries. Как онлайн-площадки сформировали рынок маркетплейсов в России - Финам.Ру\n- Ваш рейтинг покупателя под угрозой: Wildberries и Ozon вводят жесткие правила оплаты и доставки - Си\n- Wildberries и Ozon изменили условия оплаты и доставки для покупателей - Пруфы\n\n## 参考信息\n- 参考汇率: 1 CNY ≈ 10.45 RUB (open.er-api.com)\n- 数据时效: 采集于 2026-05-24 02:50 CST\n- > 以上数据均来自 Wildberries 平台公开接口",
   "data_sources": [
     {
       "name": "Wildberries v18 API (真实销量排序)",
