@@ -1,5 +1,18 @@
 [
   {
+    "slug": "ozon-daily-pick-2026-05-26",
+    "title": "🏆 Ozon每日选品推荐 — 2026-05-26",
+    "date": "2026-05-26",
+    "lastmod": "2026-05-26",
+    "excerpt": "## 数据概览\n- 数据来源: **Wildberries 平台真实销量排序** (v18 API)\n- 搜索关键词: 32个精确商品品类, 覆盖电子配件/运动/美妆/家居/母婴/服装\n- 采集商品: 5 款 (均分 4.9/5.0, 均价 890 ₽)\n- 热门细分类目: 充电宝(2款), 智能手",
+    "cat": "ozon-pick",
+    "sub": "daily-select",
+    "featured": true,
+    "verified": false,
+    "source": "Wildberries v18 API",
+    "source_name": "猫明之主"
+  },
+  {
     "slug": "ozon-daily-pick-2026-05-25",
     "title": "🏆 Ozon每日选品推荐 — 2026-05-25",
     "date": "2026-05-25",
@@ -7,7 +20,6 @@
     "excerpt": "## 数据概览\n- 数据来源: **Wildberries 平台真实销量排序** (v18 API)\n- 搜索关键词: 32个精确商品品类, 覆盖电子配件/运动/美妆/家居/母婴/服装\n- 采集商品: 7 款 (均分 4.9/5.0, 均价 733 ₽)\n- 热门细分类目: 智能手环(2款), 瑜伽",
     "cat": "ozon-pick",
     "sub": "daily-select",
-    "featured": true,
     "verified": false,
     "source": "Wildberries v18 API",
     "source_name": "猫明之主"
